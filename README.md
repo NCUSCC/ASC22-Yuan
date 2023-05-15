@@ -31,5 +31,6 @@ Our main contribution is to build GPT2 on Megatron-LM as the baseline, use DeepS
 <div align=center><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/88324880/238262651-7d0d5955-a0d7-4bc7-bb8a-c93337736e38.png"></div>
 
 ## Acknowledgement
-Thanks a lot to Nanchang University Supercomupter Student Competition Cluster in 2022.All rights reserved @NCUSCC
-If you have any problems, please contact [**congruiyin@email.ncu.edu.cn**](mailto:congruiyin@email.ncu.edu.cn)
+Thanks a lot to Nanchang University Supercomupter Student Competition Cluster in 2022.All rights reserved @NCUSCC.
+
+If you have any problems, please contact [**congruiyin@email.ncu.edu.cn**](mailto:congruiyin@email.ncu.edu.cn).
