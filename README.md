@@ -15,6 +15,10 @@ The Yuan Large Language Model Challenge must be finished with Pytorch.The softwa
 
 <div align=center><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/88324880/238262293-e1c00a49-064d-4d8f-8a1d-69e691b1fa3f.png"></div>
 
+## Methodology(Main)
+Based on our environment and investigation, how we narrow down the choice of parallel strategies is shown in Figure . The yellow line is our chosen path. Our candidates are MP, TP and 2D parallelism.
+<div align=center><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/88324880/238264596-9c46ed33-c8e9-4e7c-b98b-b01e6eeacd13.png"></div>
+
 ## Result
 We build GPT2 on Megatron-LM as the baseline, use DeepSpeed engine to add ZeRO optimized memory management, and use General, GPU specific, and ZeRO optimizations. The training time required by different methods is shown in the Figure. Our final traning time is 66.75h. The reason why we did not reach 33.87h is explained below.
 
@@ -25,3 +29,7 @@ DefaultCPUAllocator can’t allocate memory occurs during training of 1B tokens 
 ## Conclusion
 Our main contribution is to build GPT2 on Megatron-LM as the baseline, use DeepSpeed engine to add ZeRO optimized memory management, and use General, GPU specific, and ZeRO optimizations, the final training of 1B tokens takes 67.75h. If we have extra CPU memory, we can reduce this time to 33.87h.
 <div align=center><img src="https://github-production-user-asset-6210df.s3.amazonaws.com/88324880/238262651-7d0d5955-a0d7-4bc7-bb8a-c93337736e38.png"></div>
+
+## Acknowledgement
+Thanks a lot to Nanchang University Supercomupter Student Competition Cluster in 2022.All rights reserved @NCUSCC
+If you have any problems, please contact [**congruiyin@email.ncu.edu.cn**](mailto:congruiyin@email.ncu.edu.cn)
