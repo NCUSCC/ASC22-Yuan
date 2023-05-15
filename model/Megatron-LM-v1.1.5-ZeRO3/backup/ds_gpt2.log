@@ -1,0 +1,233 @@
+nohup: ignoring input
+/home/asc20g0/ASC22/cuda11.3/lib/python3.7/site-packages/torch/distributed/launch.py:186: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  FutureWarning,
+WARNING:torch.distributed.run:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 1
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ False
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... False
+  deepspeed_activation_checkpointing  False
+  deepspeed_config ................ None
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 1000
+  eval_iters ...................... 10
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  local_rank ...................... 0
+  log_interval .................... 100
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... False
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  save_interval ................... 10000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ False
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... False
+  tensorboard_dir ................. None
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 500000
+  train_tokens .................... 1000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc20g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 0.0
+  zero_contigious_gradients ....... False
+  zero_reduce_bucket_size ......... 0.0
+  zero_reduce_scatter ............. False
+  zero_stage ...................... 1.0
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+> initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+building GPT2 model ...
+[2022-02-18 06:52:47,619] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-02-18 06:52:47,620] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-02-18 06:52:47,620] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 109.57 GB, percent = 43.5%
+ > number of parameters on model parallel rank 1            4.722 Billion
+ > number of parameters on model parallel rank 2            4.722 Billion
+ > number of parameters on model parallel rank 3            4.722 Billion
+[2022-02-18 06:52:47,879] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-02-18 06:52:47,879] [INFO] [utils.py:827:see_memory_usage] MA 2.19 GB         Max_MA 2.19 GB         CA 2.28 GB         Max_CA 2 GB 
+[2022-02-18 06:52:47,880] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 109.68 GB, percent = 43.6%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+WARNING: could not find the metadata file /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/latest_checkpointed_iteration.txt 
+    will not load any checkpoints and will start from random
+> building train, validation, and test datasets ...
+ > datasets target sizes (minimum size):
+    train:      500000
+    validation: 5010
+    test:       10
+> building train, validation, and test datasets for GPT2 ...
+ > building dataset index ...
+    reading sizes...
+    reading pointers...
+    reading document index...
+    creating numpy buffer of mmap...
+    creating memory view of numpy buffer...
+ > finished creating indexed dataset in 0.000365 seconds
+    number of documents: 1706760
+ > dataset split:
+    train:
+     document indices in [0, 1619715) total of 1619715 documents
+    validation:
+     document indices in [1619715, 1705053) total of 85338 documents
+    test:
+     document indices in [1705053, 1706760) total of 1707 documents
+ > loading doc-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.002 seconds
+    total number of samples: 557359
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.029 seconds
+    total number of samples: 62129
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc20g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 66
+    total number of epochs: 1
+> finished creating GPT2 datasets ...
+setting training data start iteration to 0
+setting validation data start iteration to 0
+done with setups ...
+time (ms) | model and optimizer: 434.44 | train/valid/test data iterators: 539.28
+training ...
+ iteration      100/  500000 | elapsed time per iteration (ms): 832.1 | learning rate: 3.891E-06 | lm loss: 9.003449E+00 | loss scale: 65536.0 | number of skipped iterations:  17 | number of nan iterations:   0 |
+after 100 iterations memory (MB) | allocated: 22644.78173828125 | max allocated: 23332.33935546875 | reserved: 26540.0 | max reserved: 26540.0
+time (ms) | forward: 151.87 | backward: 541.42 | backward-backward: 416.38 | backward-allreduce: 27.14 | backward-master-grad: 58.99 | backward-clip-grad: 38.81 | optimizer: 138.47 | batch generator: 1.56
+Effective Tera Flops per GPU: 0.23 and total parameters 4.722 B
+ iteration      200/  500000 | elapsed time per iteration (ms): 875.8 | learning rate: 8.578E-06 | lm loss: 7.360400E+00 | loss scale: 65536.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 151.04 | backward: 560.59 | backward-backward: 417.96 | backward-allreduce: 27.51 | backward-master-grad: 68.26 | backward-clip-grad: 46.75 | optimizer: 163.90 | batch generator: 1.00
+Effective Tera Flops per GPU: 0.22 and total parameters 4.722 B
+ iteration      300/  500000 | elapsed time per iteration (ms): 877.7 | learning rate: 1.327E-05 | lm loss: 6.518144E+00 | loss scale: 65536.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 152.13 | backward: 561.37 | backward-backward: 418.77 | backward-allreduce: 26.95 | backward-master-grad: 68.79 | backward-clip-grad: 46.75 | optimizer: 163.88 | batch generator: 1.03
+Effective Tera Flops per GPU: 0.22 and total parameters 4.722 B
+ iteration      400/  500000 | elapsed time per iteration (ms): 877.2 | learning rate: 1.795E-05 | lm loss: 6.216108E+00 | loss scale: 65536.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 152.06 | backward: 561.41 | backward-backward: 419.59 | backward-allreduce: 27.18 | backward-master-grad: 68.36 | backward-clip-grad: 46.17 | optimizer: 163.42 | batch generator: 0.99
+Effective Tera Flops per GPU: 0.22 and total parameters 4.722 B
+------------------------------------------------------------------------------------------------------------------
+ validation loss at the end of training for val data | lm loss value: 6.024948E+00 | lm loss PPL: 4.136200E+02 | 
+------------------------------------------------------------------------------------------------------------------
+global rank 2 is saving checkpoint at iteration     489 to /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_02/model_optim_rng.pt
+global rank 3 is saving checkpoint at iteration     489 to /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_03/model_optim_rng.pt
+global rank 1 is saving checkpoint at iteration     489 to /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_01/model_optim_rng.pt
+global rank 0 is saving checkpoint at iteration     489 to /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_00/model_optim_rng.pt
+  successfully saved /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_02/model_optim_rng.pt
+  successfully saved /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_01/model_optim_rng.pt
+  successfully saved /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_00/model_optim_rng.pt
+  successfully saved /home/asc20g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/iter_0000489/mp_rank_03/model_optim_rng.pt
+-------------------------------------------------------------------------------------------------------------------
+ validation loss at the end of training for test data | lm loss value: 6.297078E+00 | lm loss PPL: 5.429828E+02 | 
+-------------------------------------------------------------------------------------------------------------------

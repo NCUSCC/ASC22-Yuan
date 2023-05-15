@@ -1,0 +1,1816 @@
+deepspeed --num_nodes 1 --num_gpus 4 pretrain_gpt2.py --model-parallel-size 4 --num-layers 40 --hidden-size 3072 --num-attention-heads 24 --seq-length 2048 --max-position-embeddings 2048 --batch-size 8 --train-iters 320000 --lr-decay-iters 320000 --save /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --load /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --data-path /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence --vocab-file /home/asc22g0/ASC22/vocab_dxy.txt --data-impl mmap --split 949,50,1 --distributed-backend nccl --lr 1.5e-4 --lr-decay-style cosine --min-lr 1.0e-5 --weight-decay 1e-2 --clip-grad 1.0 --warmup 0.01 --checkpoint-activations --log-interval 100 --save-interval 5000 --eval-interval 2000 --eval-iters 100 --fp16 --scattered-embeddings --train-tokens 20000000 --tokenizer-type BertWordPieceLowerCase --tensorboard-dir /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b --deepspeed --deepspeed_config /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json --zero-stage 3 --zero-reduce-bucket-size 90000000 --zero-allgather-bucket-size 5000000000 --zero-contigious-gradients --zero-reduce-scatter --deepspeed-activation-checkpointing --checkpoint-num-layers 1 --partition-activations --synchronize-each-layer --contigious-checkpointing
+[2022-03-04 20:25:03,710] [WARNING] [runner.py:148:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+[2022-03-04 20:25:03,922] [INFO] [runner.py:420:main] cmd = /home/asc20g0/ASC22/cuda11.3/bin/python3.7.5 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMCwgMSwgMiwgM119 --master_addr=127.0.0.1 --master_port=29500 pretrain_gpt2.py --model-parallel-size 4 --num-layers 40 --hidden-size 3072 --num-attention-heads 24 --seq-length 2048 --max-position-embeddings 2048 --batch-size 8 --train-iters 320000 --lr-decay-iters 320000 --save /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --load /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --data-path /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence --vocab-file /home/asc22g0/ASC22/vocab_dxy.txt --data-impl mmap --split 949,50,1 --distributed-backend nccl --lr 1.5e-4 --lr-decay-style cosine --min-lr 1.0e-5 --weight-decay 1e-2 --clip-grad 1.0 --warmup 0.01 --checkpoint-activations --log-interval 100 --save-interval 5000 --eval-interval 2000 --eval-iters 100 --fp16 --scattered-embeddings --train-tokens 20000000 --tokenizer-type BertWordPieceLowerCase --tensorboard-dir /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b --deepspeed --deepspeed_config /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json --zero-stage 3 --zero-reduce-bucket-size 90000000 --zero-allgather-bucket-size 5000000000 --zero-contigious-gradients --zero-reduce-scatter --deepspeed-activation-checkpointing --checkpoint-num-layers 1 --partition-activations --synchronize-each-layer --contigious-checkpointing
+[2022-03-04 20:25:05,128] [INFO] [launch.py:89:main] 0 NCCL_IB_DISABLE=1
+[2022-03-04 20:25:05,128] [INFO] [launch.py:89:main] 0 NCCL_P2P_LEVEL=NVL
+[2022-03-04 20:25:05,128] [INFO] [launch.py:89:main] 0 NCCL_DEBUG=INFO
+[2022-03-04 20:25:05,128] [INFO] [launch.py:89:main] 0 NCCL_SOCKET_IFNAME=enp2s0f0
+[2022-03-04 20:25:05,129] [INFO] [launch.py:96:main] WORLD INFO DICT: {'localhost': [0, 1, 2, 3]}
+[2022-03-04 20:25:05,129] [INFO] [launch.py:103:main] nnodes=1, num_local_procs=4, node_rank=0
+[2022-03-04 20:25:05,129] [INFO] [launch.py:115:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0, 1, 2, 3]})
+[2022-03-04 20:25:05,129] [INFO] [launch.py:116:main] dist_world_size=4
+[2022-03-04 20:25:05,129] [INFO] [launch.py:118:main] Setting CUDA_VISIBLE_DEVICES=0,1,2,3
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 8
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ True
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... True
+  deepspeed_activation_checkpointing  True
+  deepspeed_config ................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 2000
+  eval_iters ...................... 100
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3
+  local_rank ...................... 0
+  log_interval .................... 100
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... True
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3
+  save_interval ................... 5000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ True
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... True
+  tensorboard_dir ................. /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 320000
+  train_tokens .................... 20000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc22g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 5000000000
+  zero_contigious_gradients ....... True
+  zero_reduce_bucket_size ......... 90000000
+  zero_reduce_scatter ............. True
+  zero_stage ...................... 3
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> setting tensorboard ...
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+[2022-03-04 20:25:08,272] [INFO] [checkpointing.py:234:model_parallel_cuda_manual_seed] > initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+[2022-03-04 20:25:12,209] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+[2022-03-04 20:25:12,218] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+[2022-03-04 20:25:12,224] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+building GPT2 model ...
+[2022-03-04 20:25:12,280] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-03-04 20:25:12,281] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-03-04 20:25:12,281] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.32 GB, percent = 31.5%
+[2022-03-04 20:25:12,282] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+good-DGX-Station:23620:23620 [1] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23620:23620 [1] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:23620:23620 [1] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:23620:23620 [1] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23620:23620 [1] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:23622:23622 [3] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23622:23622 [3] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:23622:23622 [3] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:23622:23622 [3] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23622:23622 [3] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:23621:23621 [2] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23621:23621 [2] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:23621:23621 [2] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:23621:23621 [2] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23621:23621 [2] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:23620:23906 [1] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:23620:23906 [1] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:23620:23906 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:23622:23909 [3] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:23622:23909 [3] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:23622:23909 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:23621:23912 [2] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:23621:23912 [2] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:23621:23912 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:23620:23906 [1] NCCL INFO Connected all rings
+good-DGX-Station:23620:23906 [1] NCCL INFO Connected all trees
+good-DGX-Station:23620:23906 [1] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:23620:23906 [1] NCCL INFO comm 0x7f87d4002f70 rank 0 nranks 1 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:23622:23909 [3] NCCL INFO Connected all rings
+good-DGX-Station:23622:23909 [3] NCCL INFO Connected all trees
+good-DGX-Station:23622:23909 [3] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:23622:23909 [3] NCCL INFO comm 0x7f2210002f70 rank 0 nranks 1 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:23621:23912 [2] NCCL INFO Connected all rings
+good-DGX-Station:23621:23912 [2] NCCL INFO Connected all trees
+good-DGX-Station:23621:23912 [2] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:23621:23912 [2] NCCL INFO comm 0x7f1c9c002f70 rank 0 nranks 1 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:23619:23619 [0] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23619:23619 [0] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:23619:23619 [0] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:23619:23619 [0] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:23619:23619 [0] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:23619:23918 [0] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:23619:23918 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:23619:23918 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:23619:23918 [0] NCCL INFO Connected all rings
+good-DGX-Station:23619:23918 [0] NCCL INFO Connected all trees
+good-DGX-Station:23619:23918 [0] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:23619:23918 [0] NCCL INFO comm 0x7f63dc002f70 rank 0 nranks 1 cudaDev 0 busId 7000 - Init COMPLETE
+ > number of parameters on model parallel rank 1            4.722 Billion
+ > number of parameters on model parallel rank 3            4.722 Billion
+ > number of parameters on model parallel rank 2            4.722 Billion
+[2022-03-04 20:25:13,219] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-03-04 20:25:13,219] [INFO] [utils.py:827:see_memory_usage] MA 2.2 GB         Max_MA 2.22 GB         CA 2.24 GB         Max_CA 2 GB 
+[2022-03-04 20:25:13,220] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.52 GB, percent = 31.6%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+DeepSpeed is enabled.
+[2022-03-04 20:25:13,224] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed info: version=0.5.10, git-hash=unknown, git-branch=unknown
+[2022-03-04 20:25:13,244] [INFO] [logging.py:69:log_dist] [Rank 0] initializing deepspeed groups using mpu
+[2022-03-04 20:25:13,244] [INFO] [logging.py:69:log_dist] [Rank 0] Initializing deepspeed groups with model parallel size 4, expert parallel size 1, and data parallel size 4
+[2022-03-04 20:25:13,244] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [0]
+[2022-03-04 20:25:13,255] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [0]
+[2022-03-04 20:25:13,265] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [1]
+[2022-03-04 20:25:13,275] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [1]
+[2022-03-04 20:25:13,276] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [2]
+[2022-03-04 20:25:13,286] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [2]
+[2022-03-04 20:25:13,296] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [3]
+[2022-03-04 20:25:13,307] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [3]
+[2022-03-04 20:25:13,309] [INFO] [engine.py:276:__init__] DeepSpeed Flops Profiler Enabled: False
+[2022-03-04 20:25:13,309] [INFO] [engine.py:1092:_configure_optimizer] Removing param_group that has no 'params' in the client Optimizer
+[2022-03-04 20:25:13,309] [INFO] [engine.py:1097:_configure_optimizer] Using client Optimizer as basic optimizer
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+
+[2022-03-04 20:25:13,349] [INFO] [engine.py:1114:_configure_optimizer] DeepSpeed Basic Optimizer = AdamW
+[2022-03-04 20:25:13,349] [INFO] [utils.py:45:is_zero_supported_optimizer] Checking ZeRO support for optimizer=AdamW type=<class 'torch.optim.adamw.AdamW'>
+[2022-03-04 20:25:13,349] [INFO] [logging.py:69:log_dist] [Rank 0] Creating fp16 ZeRO stage 3 optimizer
+[2022-03-04 20:25:13,349] [INFO] [engine.py:1383:_configure_zero_optimizer] Initializing ZeRO Stage 3
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+[2022-03-04 20:25:13,352] [INFO] [stage3.py:640:__init__] Reduce bucket size 10000000.0
+[2022-03-04 20:25:13,352] [INFO] [stage3.py:641:__init__] Allgather bucket size 50000000.0
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+Emitting ninja build file /home/asc22g0/.cache/torch_extensions/py37_cu113/utils/build.ninja...
+Building extension module utils...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module utils...
+Time to load utils op: 0.49614453315734863 seconds
+Loading extension module utils...
+Loading extension module utils...
+Time to load utils op: 0.5033495426177979 seconds
+Time to load utils op: 0.5018324851989746 seconds
+Loading extension module utils...
+Time to load utils op: 0.5017704963684082 seconds
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:23620:23937 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:23622:23939 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:23621:23938 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:23620:23937 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:23622:23939 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:23621:23938 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:23619:23936 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:23619:23936 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Connected all rings
+good-DGX-Station:23621:23938 [2] NCCL INFO Connected all rings
+good-DGX-Station:23619:23936 [0] NCCL INFO Connected all rings
+good-DGX-Station:23620:23937 [1] NCCL INFO Connected all rings
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:23621:23938 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:23622:23939 [3] NCCL INFO Connected all trees
+good-DGX-Station:23622:23939 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:23622:23939 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23620:23937 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:23619:23936 [0] NCCL INFO Connected all trees
+good-DGX-Station:23619:23936 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:23619:23936 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:23621:23938 [2] NCCL INFO Connected all trees
+good-DGX-Station:23621:23938 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:23621:23938 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:23620:23937 [1] NCCL INFO Connected all trees
+good-DGX-Station:23620:23937 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:23620:23937 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:23619:23936 [0] NCCL INFO comm 0x7f630c002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:23621:23938 [2] NCCL INFO comm 0x7f1ba0002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:23622:23939 [3] NCCL INFO comm 0x7f2128002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:23620:23937 [1] NCCL INFO comm 0x7f86f4002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:23619:23619 [0] NCCL INFO Launch mode Parallel
+[2022-03-04 20:25:25,525] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | init_optimizer_state: 8982.16
+[2022-03-04 20:25:25,602] [INFO] [stage3.py:812:__init__] optimizer state initialized
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+Time to load utils op: 0.0004532337188720703 seconds
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+Time to load utils op: 0.0003910064697265625 seconds
+[2022-03-04 20:25:26,119] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed Final Optimizer = AdamW
+[2022-03-04 20:25:26,119] [INFO] [engine.py:805:_configure_lr_scheduler] DeepSpeed using client LR scheduler
+[2022-03-04 20:25:26,120] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed LR Scheduler = <megatron.learning_rates.AnnealingLR object at 0x7f657de07e90>
+[2022-03-04 20:25:26,120] [INFO] [logging.py:69:log_dist] [Rank 0] step=0, skipped=0, lr=[0.0, 0.0], mom=[(0.9, 0.999), (0.9, 0.999)]
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+Time to load utils op: 0.00039839744567871094 seconds
+[2022-03-04 20:25:26,121] [INFO] [config.py:1058:print] DeepSpeedEngine configuration:
+[2022-03-04 20:25:26,121] [INFO] [config.py:1062:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2022-03-04 20:25:26,121] [INFO] [config.py:1062:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2022-03-04 20:25:26,121] [INFO] [config.py:1062:print]   amp_enabled .................. False
+[2022-03-04 20:25:26,121] [INFO] [config.py:1062:print]   amp_params ................... False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": null, 
+    "exps_dir": null, 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   bfloat16_enabled ............. False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   checkpoint_tag_validation_enabled  True
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   checkpoint_tag_validation_fail  False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   communication_data_type ...... None
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   curriculum_enabled ........... False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   curriculum_params ............ False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   dataloader_drop_last ......... False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   disable_allgather ............ False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   dump_state ................... False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   dynamic_loss_scale_args ...... {'init_scale': 4294967296, 'scale_window': 1000, 'delayed_shift': 2, 'min_scale': 1}
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   eigenvalue_enabled ........... False
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   eigenvalue_gas_boundary_resolution  1
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2022-03-04 20:25:26,122] [INFO] [config.py:1062:print]   eigenvalue_layer_num ......... 0
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   eigenvalue_max_iter .......... 100
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   eigenvalue_stability ......... 1e-06
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   eigenvalue_tol ............... 0.01
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   eigenvalue_verbose ........... False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   elasticity_enabled ........... False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   fp16_enabled ................. True
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   fp16_master_weights_and_gradients  False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   fp16_mixed_quantize .......... False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   global_rank .................. 0
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   gradient_accumulation_steps .. 8
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   gradient_clipping ............ 1.0
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   gradient_predivide_factor .... 1.0
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   initial_dynamic_scale ........ 4294967296
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   loss_scale ................... 0
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   memory_breakdown ............. False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   optimizer_legacy_fusion ...... False
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   optimizer_name ............... None
+[2022-03-04 20:25:26,123] [INFO] [config.py:1062:print]   optimizer_params ............. None
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0}
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   pld_enabled .................. False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   pld_params ................... False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   prescale_gradients ........... False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_change_rate ......... 0.001
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_groups .............. 1
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_offset .............. 1000
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_period .............. 1000
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_rounding ............ 0
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_start_bits .......... 16
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_target_bits ......... 8
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_training_enabled .... False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_type ................ 0
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   quantize_verbose ............. False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   scheduler_name ............... None
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   scheduler_params ............. None
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   sparse_attention ............. None
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   sparse_gradients_enabled ..... False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   steps_per_print .............. 1000
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   tensorboard_enabled .......... False
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   tensorboard_job_name ......... DeepSpeedJobName
+[2022-03-04 20:25:26,124] [INFO] [config.py:1062:print]   tensorboard_output_path ...... 
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   train_batch_size ............. 32
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   train_micro_batch_size_per_gpu  4
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   use_quantizer_kernel ......... False
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   wall_clock_breakdown ......... True
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   world_size ................... 1
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   zero_allow_untested_optimizer  False
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   zero_config .................. {
+    "stage": 3, 
+    "contiguous_gradients": true, 
+    "reduce_scatter": true, 
+    "reduce_bucket_size": 1.000000e+07, 
+    "allgather_partitions": true, 
+    "allgather_bucket_size": 5.000000e+08, 
+    "overlap_comm": true, 
+    "load_from_fp32_weights": true, 
+    "elastic_checkpoint": false, 
+    "offload_param": {
+        "device": null, 
+        "nvme_path": null, 
+        "buffer_count": 5, 
+        "buffer_size": 1.000000e+08, 
+        "max_in_cpu": 1.000000e+09, 
+        "pin_memory": false
+    }, 
+    "offload_optimizer": {
+        "device": null, 
+        "nvme_path": null, 
+        "buffer_count": 4, 
+        "pin_memory": false, 
+        "pipeline_read": false, 
+        "pipeline_write": false, 
+        "fast_init": false
+    }, 
+    "sub_group_size": 4.000000e+08, 
+    "prefetch_bucket_size": 5.000000e+07, 
+    "param_persistence_threshold": 1.000000e+05, 
+    "max_live_parameters": 5.000000e+08, 
+    "max_reuse_distance": 5.000000e+07, 
+    "gather_fp16_weights_on_model_save": false, 
+    "ignore_unused_parameters": true, 
+    "round_robin_gradients": false, 
+    "legacy_stage1": false
+}
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   zero_enabled ................. True
+[2022-03-04 20:25:26,125] [INFO] [config.py:1062:print]   zero_optimization_stage ...... 3
+[2022-03-04 20:25:26,125] [INFO] [config.py:1070:print]   json = {
+    "train_batch_size": 32, 
+    "gradient_accumulation_steps": 8, 
+    "steps_per_print": 1000, 
+    "zero_optimization": {
+        "stage": 3, 
+        "stage3_max_live_parameters": 5.000000e+08, 
+        "stage3_max_reuse_distance": 5.000000e+07, 
+        "stage3_param_persitance_threshold": 1.000000e+05, 
+        "stage3_prefetch_bucket_size": 5.000000e+07, 
+        "contiguous_gradients": true, 
+        "cpu_offload": true, 
+        "cpu_offload_params": true, 
+        "cpu_offload_use_pin_memory": true, 
+        "overlap_comm": true, 
+        "reduce_bucket_size": 1.000000e+07, 
+        "sub_group_size": 4.000000e+08, 
+        "offload_param": {
+            "device": "cpu", 
+            "max_in_cpu": 4.000000e+08
+        }
+    }, 
+    "gradient_clipping": 1.0, 
+    "fp16": {
+        "enabled": true, 
+        "loss_scale": 0, 
+        "loss_scale_window": 1000, 
+        "hysteresis": 2, 
+        "min_loss_scale": 1
+    }, 
+    "wall_clock_breakdown": true, 
+    "zero_allow_untested_optimizer": false
+}
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+Time to load utils op: 0.00038242340087890625 seconds
+[2022-03-04 20:25:29,175] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 23619
+[2022-03-04 20:25:29,175] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 23620
+[2022-03-04 20:25:29,175] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 23621
+[2022-03-04 20:25:29,175] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 23622
+[2022-03-04 20:25:29,175] [ERROR] [launch.py:166:sigkill_handler] ['/home/asc20g0/ASC22/cuda11.3/bin/python3.7.5', '-u', 'pretrain_gpt2.py', '--local_rank=3', '--model-parallel-size', '4', '--num-layers', '40', '--hidden-size', '3072', '--num-attention-heads', '24', '--seq-length', '2048', '--max-position-embeddings', '2048', '--batch-size', '8', '--train-iters', '320000', '--lr-decay-iters', '320000', '--save', '/home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3', '--load', '/home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3', '--data-path', '/home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence', '--vocab-file', '/home/asc22g0/ASC22/vocab_dxy.txt', '--data-impl', 'mmap', '--split', '949,50,1', '--distributed-backend', 'nccl', '--lr', '1.5e-4', '--lr-decay-style', 'cosine', '--min-lr', '1.0e-5', '--weight-decay', '1e-2', '--clip-grad', '1.0', '--warmup', '0.01', '--checkpoint-activations', '--log-interval', '100', '--save-interval', '5000', '--eval-interval', '2000', '--eval-iters', '100', '--fp16', '--scattered-embeddings', '--train-tokens', '20000000', '--tokenizer-type', 'BertWordPieceLowerCase', '--tensorboard-dir', '/home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b', '--deepspeed', '--deepspeed_config', '/home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json', '--zero-stage', '3', '--zero-reduce-bucket-size', '90000000', '--zero-allgather-bucket-size', '5000000000', '--zero-contigious-gradients', '--zero-reduce-scatter', '--deepspeed-activation-checkpointing', '--checkpoint-num-layers', '1', '--partition-activations', '--synchronize-each-layer', '--contigious-checkpointing'] exits with return code = 1
+deepspeed --num_nodes 1 --num_gpus 4 pretrain_gpt2.py --model-parallel-size 4 --num-layers 40 --hidden-size 3072 --num-attention-heads 24 --seq-length 2048 --max-position-embeddings 2048 --batch-size 8 --train-iters 320000 --lr-decay-iters 320000 --save /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --load /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --data-path /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence --vocab-file /home/asc22g0/ASC22/vocab_dxy.txt --data-impl mmap --split 949,50,1 --distributed-backend nccl --lr 1.5e-4 --lr-decay-style cosine --min-lr 1.0e-5 --weight-decay 1e-2 --clip-grad 1.0 --warmup 0.01 --checkpoint-activations --log-interval 100 --save-interval 5000 --eval-interval 2000 --eval-iters 100 --fp16 --scattered-embeddings --train-tokens 20000000 --tokenizer-type BertWordPieceLowerCase --tensorboard-dir /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b --deepspeed --deepspeed_config /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json --zero-stage 3 --zero-reduce-bucket-size 90000000 --zero-allgather-bucket-size 5000000000 --zero-contigious-gradients --zero-reduce-scatter --deepspeed-activation-checkpointing --checkpoint-num-layers 1 --partition-activations --synchronize-each-layer --contigious-checkpointing
+[2022-03-04 20:56:23,170] [WARNING] [runner.py:148:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+[2022-03-04 20:56:23,310] [INFO] [runner.py:420:main] cmd = /home/asc20g0/ASC22/cuda11.3/bin/python3.7.5 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMCwgMSwgMiwgM119 --master_addr=127.0.0.1 --master_port=29500 pretrain_gpt2.py --model-parallel-size 4 --num-layers 40 --hidden-size 3072 --num-attention-heads 24 --seq-length 2048 --max-position-embeddings 2048 --batch-size 8 --train-iters 320000 --lr-decay-iters 320000 --save /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --load /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3 --data-path /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence --vocab-file /home/asc22g0/ASC22/vocab_dxy.txt --data-impl mmap --split 949,50,1 --distributed-backend nccl --lr 1.5e-4 --lr-decay-style cosine --min-lr 1.0e-5 --weight-decay 1e-2 --clip-grad 1.0 --warmup 0.01 --checkpoint-activations --log-interval 100 --save-interval 5000 --eval-interval 2000 --eval-iters 100 --fp16 --scattered-embeddings --train-tokens 20000000 --tokenizer-type BertWordPieceLowerCase --tensorboard-dir /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b --deepspeed --deepspeed_config /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json --zero-stage 3 --zero-reduce-bucket-size 90000000 --zero-allgather-bucket-size 5000000000 --zero-contigious-gradients --zero-reduce-scatter --deepspeed-activation-checkpointing --checkpoint-num-layers 1 --partition-activations --synchronize-each-layer --contigious-checkpointing
+[2022-03-04 20:56:24,525] [INFO] [launch.py:89:main] 0 NCCL_IB_DISABLE=1
+[2022-03-04 20:56:24,525] [INFO] [launch.py:89:main] 0 NCCL_P2P_LEVEL=NVL
+[2022-03-04 20:56:24,525] [INFO] [launch.py:89:main] 0 NCCL_DEBUG=INFO
+[2022-03-04 20:56:24,525] [INFO] [launch.py:89:main] 0 NCCL_SOCKET_IFNAME=enp2s0f0
+[2022-03-04 20:56:24,525] [INFO] [launch.py:96:main] WORLD INFO DICT: {'localhost': [0, 1, 2, 3]}
+[2022-03-04 20:56:24,525] [INFO] [launch.py:103:main] nnodes=1, num_local_procs=4, node_rank=0
+[2022-03-04 20:56:24,525] [INFO] [launch.py:115:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0, 1, 2, 3]})
+[2022-03-04 20:56:24,525] [INFO] [launch.py:116:main] dist_world_size=4
+[2022-03-04 20:56:24,525] [INFO] [launch.py:118:main] Setting CUDA_VISIBLE_DEVICES=0,1,2,3
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 8
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ True
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... True
+  deepspeed_activation_checkpointing  True
+  deepspeed_config ................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/examples/ds_zero_stage_3_config_release.json
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 2000
+  eval_iters ...................... 100
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3
+  local_rank ...................... 0
+  log_interval .................... 100
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... True
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3
+  save_interval ................... 5000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ True
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... True
+  tensorboard_dir ................. /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/tboard-zero3/stage3-lazyscatter-40l_3072h_1n_4g_4mp_8b
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 320000
+  train_tokens .................... 20000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc22g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 5000000000
+  zero_contigious_gradients ....... True
+  zero_reduce_bucket_size ......... 90000000
+  zero_reduce_scatter ............. True
+  zero_stage ...................... 3
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> setting tensorboard ...
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+[2022-03-04 20:56:27,666] [INFO] [checkpointing.py:234:model_parallel_cuda_manual_seed] > initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+building GPT2 model ...
+[2022-03-04 20:56:31,621] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+[2022-03-04 20:56:31,652] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+[2022-03-04 20:56:31,657] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-03-04 20:56:31,658] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-03-04 20:56:31,659] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.28 GB, percent = 31.5%
+[2022-03-04 20:56:31,659] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+[2022-03-04 20:56:31,662] [WARNING] [partition_parameters.py:458:__init__] zero.Init: the `config` argument is deprecated. Please use `config_dict_or_path` instead.
+good-DGX-Station:25194:25194 [1] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25194:25194 [1] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:25194:25194 [1] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:25194:25194 [1] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25194:25194 [1] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:25196:25196 [3] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25196:25196 [3] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:25196:25196 [3] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:25196:25196 [3] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25196:25196 [3] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:25194:25480 [1] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:25194:25480 [1] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:25194:25480 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:25195:25195 [2] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25195:25195 [2] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:25195:25195 [2] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:25195:25195 [2] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25195:25195 [2] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:25194:25480 [1] NCCL INFO Connected all rings
+good-DGX-Station:25194:25480 [1] NCCL INFO Connected all trees
+good-DGX-Station:25194:25480 [1] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:25194:25480 [1] NCCL INFO comm 0x7f1744002f70 rank 0 nranks 1 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:25196:25483 [3] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:25196:25483 [3] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:25196:25483 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:25195:25486 [2] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:25195:25486 [2] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:25195:25486 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:25193:25193 [0] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25193:25193 [0] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:25193:25193 [0] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:25193:25193 [0] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:25193:25193 [0] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:25196:25483 [3] NCCL INFO Connected all rings
+good-DGX-Station:25196:25483 [3] NCCL INFO Connected all trees
+good-DGX-Station:25196:25483 [3] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:25196:25483 [3] NCCL INFO comm 0x7f533c002f70 rank 0 nranks 1 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:25195:25486 [2] NCCL INFO Connected all rings
+good-DGX-Station:25195:25486 [2] NCCL INFO Connected all trees
+good-DGX-Station:25195:25486 [2] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:25195:25486 [2] NCCL INFO comm 0x7f0358002f70 rank 0 nranks 1 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:25193:25490 [0] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:25193:25490 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:25193:25490 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:25193:25490 [0] NCCL INFO Connected all rings
+good-DGX-Station:25193:25490 [0] NCCL INFO Connected all trees
+good-DGX-Station:25193:25490 [0] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:25193:25490 [0] NCCL INFO comm 0x7f0460002f70 rank 0 nranks 1 cudaDev 0 busId 7000 - Init COMPLETE
+ > number of parameters on model parallel rank 1            4.722 Billion
+ > number of parameters on model parallel rank 3            4.722 Billion
+ > number of parameters on model parallel rank 2            4.722 Billion
+[2022-03-04 20:56:32,596] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-03-04 20:56:32,597] [INFO] [utils.py:827:see_memory_usage] MA 2.2 GB         Max_MA 2.22 GB         CA 2.24 GB         Max_CA 2 GB 
+[2022-03-04 20:56:32,597] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.51 GB, percent = 31.6%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+DeepSpeed is enabled.
+[2022-03-04 20:56:32,602] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed info: version=0.5.10, git-hash=unknown, git-branch=unknown
+[2022-03-04 20:56:32,621] [INFO] [logging.py:69:log_dist] [Rank 0] initializing deepspeed groups using mpu
+[2022-03-04 20:56:32,621] [INFO] [logging.py:69:log_dist] [Rank 0] Initializing deepspeed groups with model parallel size 4, expert parallel size 1, and data parallel size 4
+[2022-03-04 20:56:32,621] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [0]
+[2022-03-04 20:56:32,632] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [0]
+[2022-03-04 20:56:32,642] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [1]
+[2022-03-04 20:56:32,652] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [1]
+[2022-03-04 20:56:32,652] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [2]
+[2022-03-04 20:56:32,663] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [2]
+[2022-03-04 20:56:32,673] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert data parallel process group with ranks: [3]
+[2022-03-04 20:56:32,683] [INFO] [logging.py:69:log_dist] [Rank 0] creating expert parallel process group with ranks: [3]
+[2022-03-04 20:56:32,686] [INFO] [engine.py:276:__init__] DeepSpeed Flops Profiler Enabled: False
+[2022-03-04 20:56:32,686] [INFO] [engine.py:1092:_configure_optimizer] Removing param_group that has no 'params' in the client Optimizer
+[2022-03-04 20:56:32,686] [INFO] [engine.py:1097:_configure_optimizer] Using client Optimizer as basic optimizer
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+[2022-03-04 20:56:32,726] [INFO] [engine.py:1114:_configure_optimizer] DeepSpeed Basic Optimizer = AdamW
+[2022-03-04 20:56:32,726] [INFO] [utils.py:45:is_zero_supported_optimizer] Checking ZeRO support for optimizer=AdamW type=<class 'torch.optim.adamw.AdamW'>
+[2022-03-04 20:56:32,726] [INFO] [logging.py:69:log_dist] [Rank 0] Creating fp16 ZeRO stage 3 optimizer
+[2022-03-04 20:56:32,726] [INFO] [engine.py:1383:_configure_zero_optimizer] Initializing ZeRO Stage 3
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+[2022-03-04 20:56:32,728] [INFO] [stage3.py:640:__init__] Reduce bucket size 10000000.0
+[2022-03-04 20:56:32,728] [INFO] [stage3.py:641:__init__] Allgather bucket size 50000000.0
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+Emitting ninja build file /home/asc22g0/.cache/torch_extensions/py37_cu113/utils/build.ninja...
+Building extension module utils...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module utils...
+Time to load utils op: 0.4910140037536621 seconds
+Loading extension module utils...
+Time to load utils op: 0.5018041133880615 seconds
+Loading extension module utils...
+Time to load utils op: 0.5018377304077148 seconds
+Loading extension module utils...
+Time to load utils op: 0.5016922950744629 seconds
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:25195:25512 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:25196:25511 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:25194:25513 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:25195:25512 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:25196:25511 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:25194:25513 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:25193:25510 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:25193:25510 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Connected all rings
+good-DGX-Station:25193:25510 [0] NCCL INFO Connected all rings
+good-DGX-Station:25195:25512 [2] NCCL INFO Connected all rings
+good-DGX-Station:25196:25511 [3] NCCL INFO Connected all rings
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25512 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25511 [3] NCCL INFO Connected all trees
+good-DGX-Station:25196:25511 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25196:25511 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25513 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25193:25510 [0] NCCL INFO Connected all trees
+good-DGX-Station:25193:25510 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25193:25510 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25195:25512 [2] NCCL INFO Connected all trees
+good-DGX-Station:25195:25512 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25195:25512 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25194:25513 [1] NCCL INFO Connected all trees
+good-DGX-Station:25194:25513 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25194:25513 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25195:25512 [2] NCCL INFO comm 0x7f0268002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:25193:25510 [0] NCCL INFO comm 0x7f0370002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:25194:25513 [1] NCCL INFO comm 0x7f1658002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:25196:25511 [3] NCCL INFO comm 0x7f5248002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:25193:25193 [0] NCCL INFO Launch mode Parallel
+[2022-03-04 20:56:44,985] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | init_optimizer_state: 9062.15
+[2022-03-04 20:56:45,062] [INFO] [stage3.py:812:__init__] optimizer state initialized
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...[2022-03-04 20:56:45,570] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed Final Optimizer = AdamW
+
+[2022-03-04 20:56:45,570] [INFO] [engine.py:805:_configure_lr_scheduler] DeepSpeed using client LR scheduler
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+[2022-03-04 20:56:45,570] [INFO] [logging.py:69:log_dist] [Rank 0] DeepSpeed LR Scheduler = <megatron.learning_rates.AnnealingLR object at 0x7f05c51e0b50>
+Time to load utils op: 0.0004096031188964844 seconds
+[2022-03-04 20:56:45,570] [INFO] [logging.py:69:log_dist] [Rank 0] step=0, skipped=0, lr=[0.0, 0.0], mom=[(0.9, 0.999), (0.9, 0.999)]
+[2022-03-04 20:56:45,571] [INFO] [config.py:1058:print] DeepSpeedEngine configuration:
+[2022-03-04 20:56:45,571] [INFO] [config.py:1062:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   amp_enabled .................. False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   amp_params ................... False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   autotuning_config ............ {
+    "enabled": false, 
+    "start_step": null, 
+    "end_step": null, 
+    "metric_path": null, 
+    "arg_mappings": null, 
+    "metric": "throughput", 
+    "model_info": null, 
+    "results_dir": null, 
+    "exps_dir": null, 
+    "overwrite": true, 
+    "fast": true, 
+    "start_profile_step": 3, 
+    "end_profile_step": 5, 
+    "tuner_type": "gridsearch", 
+    "tuner_early_stopping": 5, 
+    "tuner_num_trials": 50, 
+    "model_info_path": null, 
+    "mp_size": 1, 
+    "max_train_batch_size": null, 
+    "min_train_batch_size": 1, 
+    "max_train_micro_batch_size_per_gpu": 1.024000e+03, 
+    "min_train_micro_batch_size_per_gpu": 1, 
+    "num_tuning_micro_batch_sizes": 3
+}
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   bfloat16_enabled ............. False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   checkpoint_tag_validation_enabled  True
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   checkpoint_tag_validation_fail  False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   communication_data_type ...... None
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   curriculum_enabled ........... False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   curriculum_params ............ False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   dataloader_drop_last ......... False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   disable_allgather ............ False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   dump_state ................... False
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   dynamic_loss_scale_args ...... {'init_scale': 4294967296, 'scale_window': 1000, 'delayed_shift': 2, 'min_scale': 1}
+[2022-03-04 20:56:45,572] [INFO] [config.py:1062:print]   eigenvalue_enabled ........... False
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_gas_boundary_resolution  1
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_layer_num ......... 0
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_max_iter .......... 100
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_stability ......... 1e-06
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_tol ............... 0.01
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   eigenvalue_verbose ........... False
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   elasticity_enabled ........... False
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   fp16_enabled ................. True
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   fp16_master_weights_and_gradients  False
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   fp16_mixed_quantize .......... False
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   global_rank .................. 0
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   gradient_accumulation_steps .. 8
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   gradient_clipping ............ 1.0
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   gradient_predivide_factor .... 1.0
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   initial_dynamic_scale ........ 4294967296
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   loss_scale ................... 0
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+[2022-03-04 20:56:45,573] [INFO] [config.py:1062:print]   memory_breakdown ............. False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   optimizer_legacy_fusion ...... False
+Time to load utils op: 0.00039315223693847656 seconds
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   optimizer_name ............... None
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   optimizer_params ............. None
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0}
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   pld_enabled .................. False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   pld_params ................... False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   prescale_gradients ........... False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_change_rate ......... 0.001
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_groups .............. 1
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_offset .............. 1000
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_period .............. 1000
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_rounding ............ 0
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_start_bits .......... 16
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_target_bits ......... 8
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_training_enabled .... False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_type ................ 0
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   quantize_verbose ............. False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   scheduler_name ............... None
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   scheduler_params ............. None
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   sparse_attention ............. None
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   sparse_gradients_enabled ..... False
+[2022-03-04 20:56:45,574] [INFO] [config.py:1062:print]   steps_per_print .............. 1000
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   tensorboard_enabled .......... False
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   tensorboard_job_name ......... DeepSpeedJobName
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   tensorboard_output_path ...... 
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   train_batch_size ............. 32
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   train_micro_batch_size_per_gpu  4
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   use_quantizer_kernel ......... False
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   wall_clock_breakdown ......... True
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   world_size ................... 1
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   zero_allow_untested_optimizer  False
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   zero_config .................. {
+    "stage": 3, 
+    "contiguous_gradients": true, 
+    "reduce_scatter": true, 
+    "reduce_bucket_size": 1.000000e+07, 
+    "allgather_partitions": true, 
+    "allgather_bucket_size": 5.000000e+08, 
+    "overlap_comm": true, 
+    "load_from_fp32_weights": true, 
+    "elastic_checkpoint": false, 
+    "offload_param": {
+        "device": null, 
+        "nvme_path": null, 
+        "buffer_count": 5, 
+        "buffer_size": 1.000000e+08, 
+        "max_in_cpu": 1.000000e+09, 
+        "pin_memory": false
+    }, 
+    "offload_optimizer": {
+        "device": null, 
+        "nvme_path": null, 
+        "buffer_count": 4, 
+        "pin_memory": false, 
+        "pipeline_read": false, 
+        "pipeline_write": false, 
+        "fast_init": false
+    }, 
+    "sub_group_size": 4.000000e+08, 
+    "prefetch_bucket_size": 5.000000e+07, 
+    "param_persistence_threshold": 1.000000e+05, 
+    "max_live_parameters": 5.000000e+08, 
+    "max_reuse_distance": 5.000000e+07, 
+    "gather_fp16_weights_on_model_save": false, 
+    "ignore_unused_parameters": true, 
+    "round_robin_gradients": false, 
+    "legacy_stage1": false
+}
+Time to load utils op: 0.00043320655822753906 seconds
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   zero_enabled ................. True
+[2022-03-04 20:56:45,575] [INFO] [config.py:1062:print]   zero_optimization_stage ...... 3
+[2022-03-04 20:56:45,575] [INFO] [config.py:1070:print]   json = {
+    "train_batch_size": 32, 
+    "gradient_accumulation_steps": 8, 
+    "steps_per_print": 1000, 
+    "zero_optimization": {
+        "stage": 3, 
+        "stage3_max_live_parameters": 5.000000e+08, 
+        "stage3_max_reuse_distance": 5.000000e+07, 
+        "stage3_param_persitance_threshold": 1.000000e+05, 
+        "stage3_prefetch_bucket_size": 5.000000e+07, 
+        "contiguous_gradients": true, 
+        "cpu_offload": true, 
+        "cpu_offload_params": true, 
+        "cpu_offload_use_pin_memory": true, 
+        "overlap_comm": true, 
+        "reduce_bucket_size": 1.000000e+07, 
+        "sub_group_size": 4.000000e+08, 
+        "offload_param": {
+            "device": "cpu", 
+            "max_in_cpu": 4.000000e+08
+        }
+    }, 
+    "gradient_clipping": 1.0, 
+    "fp16": {
+        "enabled": true, 
+        "loss_scale": 0, 
+        "loss_scale_window": 1000, 
+        "hysteresis": 2, 
+        "min_loss_scale": 1
+    }, 
+    "wall_clock_breakdown": true, 
+    "zero_allow_untested_optimizer": false
+}
+Using /home/asc22g0/.cache/torch_extensions/py37_cu113 as PyTorch extensions root...
+No modifications detected for re-loaded extension module utils, skipping build step...
+Loading extension module utils...
+Time to load utils op: 0.000354766845703125 seconds
+WARNING: could not find the metadata file /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B-zero3/latest_checkpointed_iteration.txt 
+    will not load any checkpoints and will start from random
+> building train, validation, and test datasets ...
+ > datasets target sizes (minimum size):
+    train:      2560000
+    validation: 128800
+    test:       800
+> building train, validation, and test datasets for GPT2 ...
+ > building dataset index ...
+    reading sizes...
+    reading pointers...
+    reading document index...
+    creating numpy buffer of mmap...
+    creating memory view of numpy buffer...
+ > finished creating indexed dataset in 0.000338 seconds
+    number of documents: 1706760
+ > dataset split:
+    train:
+     document indices in [0, 1619715) total of 1619715 documents
+    validation:
+     document indices in [1619715, 1705053) total of 85338 documents
+    test:
+     document indices in [1705053, 1706760) total of 1707 documents
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_2560000ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_2560000ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_2560000ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 2940431
+    total number of epochs: 5
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_128800ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_128800ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_128800ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 154140
+    total number of epochs: 5
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_800ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_800ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_800ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 1278
+    total number of epochs: 2
+> finished creating GPT2 datasets ...
+good-DGX-Station:25196:25526 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:25195:25525 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:25194:25524 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:25196:25526 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:25195:25525 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:25194:25524 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:25193:25523 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:25193:25523 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Connected all rings
+good-DGX-Station:25193:25523 [0] NCCL INFO Connected all rings
+good-DGX-Station:25194:25524 [1] NCCL INFO Connected all rings
+good-DGX-Station:25195:25525 [2] NCCL INFO Connected all rings
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:25195:25525 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:25196:25526 [3] NCCL INFO Connected all trees
+good-DGX-Station:25196:25526 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25196:25526 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25194:25524 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:25193:25523 [0] NCCL INFO Connected all trees
+good-DGX-Station:25193:25523 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25193:25523 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25195:25525 [2] NCCL INFO Connected all trees
+good-DGX-Station:25195:25525 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25195:25525 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25194:25524 [1] NCCL INFO Connected all trees
+good-DGX-Station:25194:25524 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:25194:25524 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:25195:25525 [2] NCCL INFO comm 0x7f0268007930 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:25193:25523 [0] NCCL INFO comm 0x7f02c8002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:25196:25526 [3] NCCL INFO comm 0x7f5248007930 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:25194:25524 [1] NCCL INFO comm 0x7f1658007930 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:25193:25193 [0] NCCL INFO Launch mode Parallel
+setting training data start iteration to 0
+setting validation data start iteration to 0
+done with setups ...
+time (ms) | model and optimizer: 13963.10 | train/valid/test data iterators: 1458.19
+training ...
+[2022-03-04 20:56:47,070] [INFO] [checkpointing.py:547:forward] Activation Checkpointing Information
+[2022-03-04 20:56:47,071] [INFO] [checkpointing.py:549:forward] ----Partition Activations True, CPU CHECKPOINTING False
+[2022-03-04 20:56:47,071] [INFO] [checkpointing.py:552:forward] ----contiguous Memory Checkpointing True with 40 total layers
+[2022-03-04 20:56:47,071] [INFO] [checkpointing.py:554:forward] ----Synchronization True
+[2022-03-04 20:56:47,071] [INFO] [checkpointing.py:555:forward] ----Profiling time in checkpointing False
+[2022-03-04 20:56:53,795] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1626.81 | backward_microstep: 5121.26 | backward_inner_microstep: 5106.46 | backward_allreduce_microstep: 14.67 | step_microstep: 0.05
+[2022-03-04 20:57:00,083] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1662.45 | backward_microstep: 4620.88 | backward_inner_microstep: 4587.21 | backward_allreduce_microstep: 33.57 | step_microstep: 0.05
+[2022-03-04 20:57:06,365] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1656.18 | backward_microstep: 4619.92 | backward_inner_microstep: 4586.30 | backward_allreduce_microstep: 33.51 | step_microstep: 0.07
+[2022-03-04 20:57:12,646] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1657.24 | backward_microstep: 4618.75 | backward_inner_microstep: 4585.39 | backward_allreduce_microstep: 33.26 | step_microstep: 0.07
+[2022-03-04 20:57:18,939] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1664.81 | backward_microstep: 4623.01 | backward_inner_microstep: 4589.76 | backward_allreduce_microstep: 33.15 | step_microstep: 0.06
+[2022-03-04 20:57:25,212] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1649.14 | backward_microstep: 4619.03 | backward_inner_microstep: 4585.81 | backward_allreduce_microstep: 33.11 | step_microstep: 0.06
+[2022-03-04 20:57:31,483] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1648.06 | backward_microstep: 4618.21 | backward_inner_microstep: 4584.98 | backward_allreduce_microstep: 33.12 | step_microstep: 0.06
+[2022-03-04 20:57:40,878] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 4294967296
+[2022-03-04 20:57:40,878] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1642.49 | backward_microstep: 7742.77 | backward_inner_microstep: 7588.22 | backward_allreduce_microstep: 154.44 | step_microstep: 5.03
+[2022-03-04 20:57:40,879] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13207.23 | backward: 40583.83 | backward_inner: 40214.18 | backward_allreduce: 368.86 | step: 5.45
+[2022-03-04 20:57:46,710] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.73 | backward_microstep: 4149.75 | backward_inner_microstep: 4135.10 | backward_allreduce_microstep: 14.54 | step_microstep: 0.06
+[2022-03-04 20:57:53,073] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.42 | backward_microstep: 4671.48 | backward_inner_microstep: 4638.36 | backward_allreduce_microstep: 33.02 | step_microstep: 0.06
+[2022-03-04 20:57:59,441] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1688.02 | backward_microstep: 4674.38 | backward_inner_microstep: 4641.05 | backward_allreduce_microstep: 33.22 | step_microstep: 0.06
+[2022-03-04 20:58:05,813] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.14 | backward_microstep: 4672.23 | backward_inner_microstep: 4638.76 | backward_allreduce_microstep: 33.36 | step_microstep: 0.06
+[2022-03-04 20:58:12,177] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.26 | backward_microstep: 4674.04 | backward_inner_microstep: 4640.68 | backward_allreduce_microstep: 33.26 | step_microstep: 0.06
+[2022-03-04 20:58:18,548] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.12 | backward_microstep: 4671.10 | backward_inner_microstep: 4638.02 | backward_allreduce_microstep: 32.97 | step_microstep: 0.07
+[2022-03-04 20:58:24,898] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1671.81 | backward_microstep: 4673.12 | backward_inner_microstep: 4639.82 | backward_allreduce_microstep: 33.20 | step_microstep: 0.06
+[2022-03-04 20:58:31,777] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4294967296, reducing to 2147483648.0
+[2022-03-04 20:58:31,777] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1675.61 | backward_microstep: 5192.31 | backward_inner_microstep: 5143.27 | backward_allreduce_microstep: 48.93 | step_microstep: 6.51
+[2022-03-04 20:58:31,777] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13474.15 | backward: 37378.40 | backward_inner: 37115.11 | backward_allreduce: 262.53 | step: 6.96
+[2022-03-04 20:58:37,624] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1683.31 | backward_microstep: 4158.79 | backward_inner_microstep: 4144.16 | backward_allreduce_microstep: 14.53 | step_microstep: 0.06
+[2022-03-04 20:58:43,975] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1671.10 | backward_microstep: 4674.98 | backward_inner_microstep: 4641.65 | backward_allreduce_microstep: 33.22 | step_microstep: 0.07
+[2022-03-04 20:58:50,333] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.51 | backward_microstep: 4676.80 | backward_inner_microstep: 4643.45 | backward_allreduce_microstep: 33.24 | step_microstep: 0.06
+[2022-03-04 20:58:56,692] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.64 | backward_microstep: 4677.39 | backward_inner_microstep: 4643.83 | backward_allreduce_microstep: 33.45 | step_microstep: 0.06
+[2022-03-04 20:59:03,044] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.08 | backward_microstep: 4670.57 | backward_inner_microstep: 4637.38 | backward_allreduce_microstep: 33.08 | step_microstep: 0.06
+[2022-03-04 20:59:09,411] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.82 | backward_microstep: 4672.18 | backward_inner_microstep: 4639.05 | backward_allreduce_microstep: 33.02 | step_microstep: 0.07
+[2022-03-04 20:59:15,766] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.11 | backward_microstep: 4674.18 | backward_inner_microstep: 4640.54 | backward_allreduce_microstep: 33.54 | step_microstep: 0.07
+[2022-03-04 20:59:22,647] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2147483648.0, reducing to 1073741824.0
+[2022-03-04 20:59:22,647] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1674.45 | backward_microstep: 5194.32 | backward_inner_microstep: 5146.03 | backward_allreduce_microstep: 48.18 | step_microstep: 7.26
+[2022-03-04 20:59:22,647] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13424.05 | backward: 37399.22 | backward_inner: 37136.15 | backward_allreduce: 262.29 | step: 7.71
+[2022-03-04 20:59:28,495] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.74 | backward_microstep: 4157.05 | backward_inner_microstep: 4142.23 | backward_allreduce_microstep: 14.72 | step_microstep: 0.06
+[2022-03-04 20:59:34,852] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1674.67 | backward_microstep: 4678.03 | backward_inner_microstep: 4644.65 | backward_allreduce_microstep: 33.27 | step_microstep: 0.06
+[2022-03-04 20:59:41,226] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.25 | backward_microstep: 4677.31 | backward_inner_microstep: 4644.10 | backward_allreduce_microstep: 33.10 | step_microstep: 0.06
+[2022-03-04 20:59:47,582] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1672.23 | backward_microstep: 4678.91 | backward_inner_microstep: 4645.51 | backward_allreduce_microstep: 33.29 | step_microstep: 0.06
+[2022-03-04 20:59:53,933] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1668.61 | backward_microstep: 4677.21 | backward_inner_microstep: 4643.76 | backward_allreduce_microstep: 33.34 | step_microstep: 0.06
+[2022-03-04 21:00:00,313] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.05 | backward_microstep: 4677.97 | backward_inner_microstep: 4645.01 | backward_allreduce_microstep: 32.85 | step_microstep: 0.07
+[2022-03-04 21:00:06,693] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.95 | backward_microstep: 4677.14 | backward_inner_microstep: 4643.38 | backward_allreduce_microstep: 33.65 | step_microstep: 0.06
+[2022-03-04 21:00:13,587] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1073741824.0, reducing to 536870912.0
+[2022-03-04 21:00:13,588] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.75 | backward_microstep: 5201.58 | backward_inner_microstep: 5152.96 | backward_allreduce_microstep: 48.51 | step_microstep: 7.63
+[2022-03-04 21:00:13,588] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13468.31 | backward: 37425.20 | backward_inner: 37161.65 | backward_allreduce: 262.77 | step: 8.07
+[2022-03-04 21:00:19,446] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.87 | backward_microstep: 4161.73 | backward_inner_microstep: 4146.87 | backward_allreduce_microstep: 14.75 | step_microstep: 0.06
+[2022-03-04 21:00:25,811] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.05 | backward_microstep: 4675.61 | backward_inner_microstep: 4642.51 | backward_allreduce_microstep: 33.00 | step_microstep: 0.06
+[2022-03-04 21:00:32,192] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.42 | backward_microstep: 4675.38 | backward_inner_microstep: 4642.27 | backward_allreduce_microstep: 33.01 | step_microstep: 0.06
+[2022-03-04 21:00:38,572] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.19 | backward_microstep: 4677.43 | backward_inner_microstep: 4644.23 | backward_allreduce_microstep: 33.09 | step_microstep: 0.06
+[2022-03-04 21:00:44,951] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.09 | backward_microstep: 4677.95 | backward_inner_microstep: 4644.52 | backward_allreduce_microstep: 33.32 | step_microstep: 0.06
+[2022-03-04 21:00:51,331] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.28 | backward_microstep: 4675.62 | backward_inner_microstep: 4642.20 | backward_allreduce_microstep: 33.31 | step_microstep: 0.07
+[2022-03-04 21:00:57,714] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.10 | backward_microstep: 4679.83 | backward_inner_microstep: 4646.37 | backward_allreduce_microstep: 33.36 | step_microstep: 0.06
+[2022-03-04 21:01:04,623] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 536870912.0, reducing to 268435456.0
+[2022-03-04 21:01:04,623] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.02 | backward_microstep: 5198.62 | backward_inner_microstep: 5150.10 | backward_allreduce_microstep: 48.42 | step_microstep: 7.45
+[2022-03-04 21:01:04,623] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13566.06 | backward: 37422.17 | backward_inner: 37159.11 | backward_allreduce: 262.29 | step: 7.90
+[2022-03-04 21:01:10,501] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1706.41 | backward_microstep: 4166.79 | backward_inner_microstep: 4151.94 | backward_allreduce_microstep: 14.74 | step_microstep: 0.06
+[2022-03-04 21:01:16,887] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.18 | backward_microstep: 4682.93 | backward_inner_microstep: 4649.00 | backward_allreduce_microstep: 33.82 | step_microstep: 0.06
+[2022-03-04 21:01:23,276] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.98 | backward_microstep: 4681.74 | backward_inner_microstep: 4648.13 | backward_allreduce_microstep: 33.50 | step_microstep: 0.06
+[2022-03-04 21:01:29,660] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.07 | backward_microstep: 4679.54 | backward_inner_microstep: 4646.12 | backward_allreduce_microstep: 33.31 | step_microstep: 0.06
+[2022-03-04 21:01:36,047] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.38 | backward_microstep: 4680.66 | backward_inner_microstep: 4647.46 | backward_allreduce_microstep: 33.09 | step_microstep: 0.06
+[2022-03-04 21:01:42,433] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.62 | backward_microstep: 4679.27 | backward_inner_microstep: 4646.06 | backward_allreduce_microstep: 33.10 | step_microstep: 0.07
+[2022-03-04 21:01:48,814] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.64 | backward_microstep: 4690.05 | backward_inner_microstep: 4656.88 | backward_allreduce_microstep: 33.06 | step_microstep: 0.06
+[2022-03-04 21:01:55,721] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 268435456.0, reducing to 134217728.0
+[2022-03-04 21:01:55,721] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.69 | backward_microstep: 5209.43 | backward_inner_microstep: 5161.23 | backward_allreduce_microstep: 48.08 | step_microstep: 8.19
+[2022-03-04 21:01:55,722] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13580.03 | backward: 37470.39 | backward_inner: 37206.86 | backward_allreduce: 262.75 | step: 8.64
+[2022-03-04 21:02:01,590] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.71 | backward_microstep: 4171.62 | backward_inner_microstep: 4156.83 | backward_allreduce_microstep: 14.69 | step_microstep: 0.06
+[2022-03-04 21:02:07,969] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.65 | backward_microstep: 4689.25 | backward_inner_microstep: 4656.08 | backward_allreduce_microstep: 33.07 | step_microstep: 0.06
+[2022-03-04 21:02:14,354] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.75 | backward_microstep: 4690.38 | backward_inner_microstep: 4657.07 | backward_allreduce_microstep: 33.21 | step_microstep: 0.06
+[2022-03-04 21:02:20,744] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.66 | backward_microstep: 4688.81 | backward_inner_microstep: 4655.82 | backward_allreduce_microstep: 32.89 | step_microstep: 0.06
+[2022-03-04 21:02:27,136] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.96 | backward_microstep: 4687.35 | backward_inner_microstep: 4654.30 | backward_allreduce_microstep: 32.94 | step_microstep: 0.06
+[2022-03-04 21:02:33,516] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.81 | backward_microstep: 4690.00 | backward_inner_microstep: 4656.85 | backward_allreduce_microstep: 33.04 | step_microstep: 0.06
+[2022-03-04 21:02:39,893] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.46 | backward_microstep: 4691.26 | backward_inner_microstep: 4657.79 | backward_allreduce_microstep: 33.36 | step_microstep: 0.06
+[2022-03-04 21:02:46,792] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 134217728.0, reducing to 67108864.0
+[2022-03-04 21:02:46,793] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.45 | backward_microstep: 5206.89 | backward_inner_microstep: 5158.02 | backward_allreduce_microstep: 48.77 | step_microstep: 7.29
+[2022-03-04 21:02:46,793] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13508.50 | backward: 37515.57 | backward_inner: 37252.81 | backward_allreduce: 262.00 | step: 7.74
+[2022-03-04 21:02:52,674] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.09 | backward_microstep: 4166.83 | backward_inner_microstep: 4152.04 | backward_allreduce_microstep: 14.68 | step_microstep: 0.06
+[2022-03-04 21:02:59,051] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.34 | backward_microstep: 4682.90 | backward_inner_microstep: 4649.54 | backward_allreduce_microstep: 33.25 | step_microstep: 0.06
+[2022-03-04 21:03:05,445] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.82 | backward_microstep: 4683.57 | backward_inner_microstep: 4650.63 | backward_allreduce_microstep: 32.83 | step_microstep: 0.06
+[2022-03-04 21:03:11,829] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.94 | backward_microstep: 4684.28 | backward_inner_microstep: 4651.18 | backward_allreduce_microstep: 32.99 | step_microstep: 0.06
+[2022-03-04 21:03:18,214] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.89 | backward_microstep: 4685.82 | backward_inner_microstep: 4652.49 | backward_allreduce_microstep: 33.22 | step_microstep: 0.07
+[2022-03-04 21:03:24,605] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.77 | backward_microstep: 4683.73 | backward_inner_microstep: 4649.73 | backward_allreduce_microstep: 33.88 | step_microstep: 0.06
+[2022-03-04 21:03:30,986] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.11 | backward_microstep: 4682.58 | backward_inner_microstep: 4649.07 | backward_allreduce_microstep: 33.40 | step_microstep: 0.06
+[2022-03-04 21:03:37,896] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 67108864.0, reducing to 33554432.0
+[2022-03-04 21:03:37,897] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.78 | backward_microstep: 5206.30 | backward_inner_microstep: 5158.13 | backward_allreduce_microstep: 48.06 | step_microstep: 7.47
+[2022-03-04 21:03:37,897] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13580.79 | backward: 37476.00 | backward_inner: 37212.86 | backward_allreduce: 262.36 | step: 7.92
+[2022-03-04 21:03:43,770] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.66 | backward_microstep: 4170.99 | backward_inner_microstep: 4156.33 | backward_allreduce_microstep: 14.55 | step_microstep: 0.06
+[2022-03-04 21:03:50,149] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.50 | backward_microstep: 4682.77 | backward_inner_microstep: 4649.47 | backward_allreduce_microstep: 33.19 | step_microstep: 0.06
+[2022-03-04 21:03:56,515] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1679.18 | backward_microstep: 4681.60 | backward_inner_microstep: 4648.56 | backward_allreduce_microstep: 32.94 | step_microstep: 0.07
+[2022-03-04 21:04:02,880] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.13 | backward_microstep: 4680.58 | backward_inner_microstep: 4647.18 | backward_allreduce_microstep: 33.30 | step_microstep: 0.07
+[2022-03-04 21:04:09,249] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1683.54 | backward_microstep: 4679.89 | backward_inner_microstep: 4646.71 | backward_allreduce_microstep: 33.07 | step_microstep: 0.07
+[2022-03-04 21:04:15,623] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.21 | backward_microstep: 4679.99 | backward_inner_microstep: 4646.45 | backward_allreduce_microstep: 33.44 | step_microstep: 0.06
+[2022-03-04 21:04:22,004] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.11 | backward_microstep: 4682.70 | backward_inner_microstep: 4649.89 | backward_allreduce_microstep: 32.70 | step_microstep: 0.06
+[2022-03-04 21:04:28,898] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 33554432.0, reducing to 16777216.0
+[2022-03-04 21:04:28,898] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1681.66 | backward_microstep: 5199.78 | backward_inner_microstep: 5151.81 | backward_allreduce_microstep: 47.86 | step_microstep: 7.66
+[2022-03-04 21:04:28,898] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13496.04 | backward: 37458.28 | backward_inner: 37196.44 | backward_allreduce: 261.07 | step: 8.11
+[2022-03-04 21:04:34,766] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.60 | backward_microstep: 4169.50 | backward_inner_microstep: 4154.84 | backward_allreduce_microstep: 14.55 | step_microstep: 0.06
+[2022-03-04 21:04:41,135] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1683.19 | backward_microstep: 4681.30 | backward_inner_microstep: 4648.49 | backward_allreduce_microstep: 32.70 | step_microstep: 0.06
+[2022-03-04 21:04:47,501] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1679.15 | backward_microstep: 4681.47 | backward_inner_microstep: 4648.07 | backward_allreduce_microstep: 33.29 | step_microstep: 0.07
+[2022-03-04 21:04:53,876] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1686.42 | backward_microstep: 4683.65 | backward_inner_microstep: 4650.66 | backward_allreduce_microstep: 32.88 | step_microstep: 0.07
+[2022-03-04 21:05:00,266] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.31 | backward_microstep: 4681.51 | backward_inner_microstep: 4648.36 | backward_allreduce_microstep: 33.04 | step_microstep: 0.06
+[2022-03-04 21:05:06,649] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.28 | backward_microstep: 4680.77 | backward_inner_microstep: 4647.21 | backward_allreduce_microstep: 33.46 | step_microstep: 0.06
+[2022-03-04 21:05:13,027] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.64 | backward_microstep: 4683.44 | backward_inner_microstep: 4650.05 | backward_allreduce_microstep: 33.28 | step_microstep: 0.07
+[2022-03-04 21:05:19,933] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 16777216.0, reducing to 8388608.0
+[2022-03-04 21:05:19,933] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.86 | backward_microstep: 5201.84 | backward_inner_microstep: 5153.05 | backward_allreduce_microstep: 48.68 | step_microstep: 7.22
+[2022-03-04 21:05:19,933] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13524.51 | backward: 37463.48 | backward_inner: 37200.78 | backward_allreduce: 261.93 | step: 7.67
+[2022-03-04 21:05:25,807] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.02 | backward_microstep: 4169.48 | backward_inner_microstep: 4154.75 | backward_allreduce_microstep: 14.63 | step_microstep: 0.06
+[2022-03-04 21:05:32,181] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1686.31 | backward_microstep: 4682.95 | backward_inner_microstep: 4650.00 | backward_allreduce_microstep: 32.84 | step_microstep: 0.06
+[2022-03-04 21:05:38,557] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1688.75 | backward_microstep: 4682.17 | backward_inner_microstep: 4649.03 | backward_allreduce_microstep: 33.04 | step_microstep: 0.06
+[2022-03-04 21:05:44,948] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.48 | backward_microstep: 4682.65 | backward_inner_microstep: 4649.45 | backward_allreduce_microstep: 33.09 | step_microstep: 0.06
+[2022-03-04 21:05:51,341] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.94 | backward_microstep: 4683.63 | backward_inner_microstep: 4650.16 | backward_allreduce_microstep: 33.37 | step_microstep: 0.06
+[2022-03-04 21:05:57,707] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1678.56 | backward_microstep: 4682.77 | backward_inner_microstep: 4649.76 | backward_allreduce_microstep: 32.90 | step_microstep: 0.06
+[2022-03-04 21:06:04,080] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1682.05 | backward_microstep: 4685.29 | backward_inner_microstep: 4651.88 | backward_allreduce_microstep: 33.31 | step_microstep: 0.06
+[2022-03-04 21:06:10,984] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 8388608.0, reducing to 4194304.0
+[2022-03-04 21:06:10,984] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.47 | backward_microstep: 5206.71 | backward_inner_microstep: 5157.87 | backward_allreduce_microstep: 48.73 | step_microstep: 7.36
+[2022-03-04 21:06:10,984] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13528.65 | backward: 37475.65 | backward_inner: 37212.94 | backward_allreduce: 261.93 | step: 7.81
+[2022-03-04 21:06:16,853] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.33 | backward_microstep: 4168.04 | backward_inner_microstep: 4153.24 | backward_allreduce_microstep: 14.69 | step_microstep: 0.06
+[2022-03-04 21:06:23,228] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.29 | backward_microstep: 4680.95 | backward_inner_microstep: 4647.93 | backward_allreduce_microstep: 32.91 | step_microstep: 0.06
+[2022-03-04 21:06:29,610] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.85 | backward_microstep: 4682.87 | backward_inner_microstep: 4650.02 | backward_allreduce_microstep: 32.74 | step_microstep: 0.06
+[2022-03-04 21:06:35,996] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.00 | backward_microstep: 4680.51 | backward_inner_microstep: 4647.04 | backward_allreduce_microstep: 33.36 | step_microstep: 0.06
+[2022-03-04 21:06:42,368] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.79 | backward_microstep: 4681.82 | backward_inner_microstep: 4648.06 | backward_allreduce_microstep: 33.65 | step_microstep: 0.06
+[2022-03-04 21:06:48,765] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.23 | backward_microstep: 4686.65 | backward_inner_microstep: 4653.26 | backward_allreduce_microstep: 33.29 | step_microstep: 0.06
+[2022-03-04 21:06:55,139] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1679.65 | backward_microstep: 4689.01 | backward_inner_microstep: 4655.46 | backward_allreduce_microstep: 33.45 | step_microstep: 0.06
+[2022-03-04 21:07:02,055] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 4194304.0, reducing to 2097152.0
+[2022-03-04 21:07:02,055] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.17 | backward_microstep: 5209.47 | backward_inner_microstep: 5160.30 | backward_allreduce_microstep: 49.06 | step_microstep: 6.64
+[2022-03-04 21:07:02,055] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13545.37 | backward: 37479.33 | backward_inner: 37215.37 | backward_allreduce: 263.18 | step: 7.08
+[2022-03-04 21:07:07,942] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1708.27 | backward_microstep: 4173.75 | backward_inner_microstep: 4159.00 | backward_allreduce_microstep: 14.65 | step_microstep: 0.06
+[2022-03-04 21:07:14,330] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.32 | backward_microstep: 4687.09 | backward_inner_microstep: 4653.65 | backward_allreduce_microstep: 33.34 | step_microstep: 0.06
+[2022-03-04 21:07:20,722] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.26 | backward_microstep: 4686.65 | backward_inner_microstep: 4653.27 | backward_allreduce_microstep: 33.28 | step_microstep: 0.07
+[2022-03-04 21:07:27,116] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.02 | backward_microstep: 4688.41 | backward_inner_microstep: 4655.45 | backward_allreduce_microstep: 32.85 | step_microstep: 0.06
+ iteration      100/  320000 | elapsed time per iteration (ms): 6400.8 | learning rate: 0.000E+00 | lm loss: 1.151931E+01 | loss scale: 2097152.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+after 100 iterations memory (MB) | allocated: 156.2373046875 | max allocated: 3800.341796875 | reserved: 7720.0 | max reserved: 7720.0
+time (ms) | forward: 1690.31 | backward: 4707.99 | backward-backward: 4707.95 | backward-allreduce: 0.00 | optimizer: 1.23 | batch generator: 1.61
+Effective Tera Flops per GPU: 0.24 and total parameters 4.722 B
+[2022-03-04 21:07:33,516] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.96 | backward_microstep: 4687.20 | backward_inner_microstep: 4653.93 | backward_allreduce_microstep: 33.16 | step_microstep: 0.06
+[2022-03-04 21:07:39,908] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.30 | backward_microstep: 4687.47 | backward_inner_microstep: 4653.95 | backward_allreduce_microstep: 33.42 | step_microstep: 0.06
+[2022-03-04 21:07:46,303] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.89 | backward_microstep: 4685.73 | backward_inner_microstep: 4652.53 | backward_allreduce_microstep: 33.09 | step_microstep: 0.06
+[2022-03-04 21:07:53,230] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 2097152.0, reducing to 1048576.0
+[2022-03-04 21:07:53,230] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.77 | backward_microstep: 5210.73 | backward_inner_microstep: 5162.45 | backward_allreduce_microstep: 48.18 | step_microstep: 8.13
+[2022-03-04 21:07:53,230] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13616.83 | backward: 37507.04 | backward_inner: 37244.27 | backward_allreduce: 262.00 | step: 8.58
+[2022-03-04 21:07:59,117] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1709.10 | backward_microstep: 4173.47 | backward_inner_microstep: 4158.26 | backward_allreduce_microstep: 15.10 | step_microstep: 0.06
+[2022-03-04 21:08:05,500] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.39 | backward_microstep: 4688.91 | backward_inner_microstep: 4655.53 | backward_allreduce_microstep: 33.27 | step_microstep: 0.06
+[2022-03-04 21:08:11,879] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.95 | backward_microstep: 4688.21 | backward_inner_microstep: 4654.60 | backward_allreduce_microstep: 33.51 | step_microstep: 0.06
+[2022-03-04 21:08:18,273] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.92 | backward_microstep: 4685.74 | backward_inner_microstep: 4652.25 | backward_allreduce_microstep: 33.39 | step_microstep: 0.06
+[2022-03-04 21:08:24,650] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.13 | backward_microstep: 4684.84 | backward_inner_microstep: 4651.33 | backward_allreduce_microstep: 33.41 | step_microstep: 0.06
+[2022-03-04 21:08:31,031] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1692.16 | backward_microstep: 4683.62 | backward_inner_microstep: 4650.24 | backward_allreduce_microstep: 33.27 | step_microstep: 0.06
+[2022-03-04 21:08:37,426] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1706.25 | backward_microstep: 4683.62 | backward_inner_microstep: 4649.99 | backward_allreduce_microstep: 33.52 | step_microstep: 0.06
+[2022-03-04 21:08:44,348] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 1048576.0, reducing to 524288.0
+[2022-03-04 21:08:44,349] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.51 | backward_microstep: 5204.84 | backward_inner_microstep: 5156.36 | backward_allreduce_microstep: 48.37 | step_microstep: 7.29
+[2022-03-04 21:08:44,349] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13578.45 | backward: 37493.25 | backward_inner: 37228.59 | backward_allreduce: 263.88 | step: 7.73
+[2022-03-04 21:08:50,235] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.10 | backward_microstep: 4170.96 | backward_inner_microstep: 4156.28 | backward_allreduce_microstep: 14.56 | step_microstep: 0.06
+[2022-03-04 21:08:56,626] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.43 | backward_microstep: 4682.98 | backward_inner_microstep: 4649.62 | backward_allreduce_microstep: 33.25 | step_microstep: 0.06
+[2022-03-04 21:09:03,023] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1707.97 | backward_microstep: 4684.10 | backward_inner_microstep: 4650.82 | backward_allreduce_microstep: 33.17 | step_microstep: 0.06
+[2022-03-04 21:09:09,415] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.64 | backward_microstep: 4684.52 | backward_inner_microstep: 4651.03 | backward_allreduce_microstep: 33.39 | step_microstep: 0.07
+[2022-03-04 21:09:15,800] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.17 | backward_microstep: 4684.50 | backward_inner_microstep: 4651.13 | backward_allreduce_microstep: 33.27 | step_microstep: 0.06
+[2022-03-04 21:09:22,194] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.61 | backward_microstep: 4685.34 | backward_inner_microstep: 4652.25 | backward_allreduce_microstep: 32.98 | step_microstep: 0.06
+[2022-03-04 21:09:28,581] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.19 | backward_microstep: 4684.87 | backward_inner_microstep: 4651.54 | backward_allreduce_microstep: 33.22 | step_microstep: 0.07
+[2022-03-04 21:09:44,684] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 9156.10
+[2022-03-04 21:09:44,685] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.05 | backward_microstep: 5203.66 | backward_inner_microstep: 5154.93 | backward_allreduce_microstep: 48.62 | step_microstep: 9200.71
+[2022-03-04 21:09:44,685] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13615.22 | backward: 37480.92 | backward_inner: 37217.65 | backward_allreduce: 262.50 | step: 9201.16
+[2022-03-04 21:09:56,029] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 7165.82 | backward_microstep: 4173.02 | backward_inner_microstep: 4158.42 | backward_allreduce_microstep: 14.50 | step_microstep: 0.06
+[2022-03-04 21:10:02,418] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.41 | backward_microstep: 4682.76 | backward_inner_microstep: 4648.53 | backward_allreduce_microstep: 34.13 | step_microstep: 0.06
+[2022-03-04 21:10:08,802] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.86 | backward_microstep: 4683.63 | backward_inner_microstep: 4649.47 | backward_allreduce_microstep: 34.06 | step_microstep: 0.06
+[2022-03-04 21:10:15,165] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.29 | backward_microstep: 4682.53 | backward_inner_microstep: 4648.36 | backward_allreduce_microstep: 34.06 | step_microstep: 0.06
+[2022-03-04 21:10:21,553] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.16 | backward_microstep: 4680.16 | backward_inner_microstep: 4645.98 | backward_allreduce_microstep: 34.08 | step_microstep: 0.06
+[2022-03-04 21:10:27,918] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1678.81 | backward_microstep: 4681.42 | backward_inner_microstep: 4647.18 | backward_allreduce_microstep: 34.13 | step_microstep: 0.06
+[2022-03-04 21:10:34,296] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.47 | backward_microstep: 4681.97 | backward_inner_microstep: 4648.35 | backward_allreduce_microstep: 33.52 | step_microstep: 0.06
+[2022-03-04 21:10:41,191] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 524288.0, reducing to 262144.0
+[2022-03-04 21:10:41,191] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.63 | backward_microstep: 5199.71 | backward_inner_microstep: 5149.77 | backward_allreduce_microstep: 49.84 | step_microstep: 5.51
+[2022-03-04 21:10:41,191] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 18995.49 | backward: 37465.21 | backward_inner: 37196.10 | backward_allreduce: 268.34 | step: 5.95
+[2022-03-04 21:10:47,062] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.95 | backward_microstep: 4172.59 | backward_inner_microstep: 4157.40 | backward_allreduce_microstep: 15.09 | step_microstep: 0.06
+[2022-03-04 21:10:53,446] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.31 | backward_microstep: 4680.69 | backward_inner_microstep: 4646.29 | backward_allreduce_microstep: 34.29 | step_microstep: 0.06
+[2022-03-04 21:10:59,816] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.27 | backward_microstep: 4679.95 | backward_inner_microstep: 4645.23 | backward_allreduce_microstep: 34.61 | step_microstep: 0.06
+[2022-03-04 21:11:06,199] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.58 | backward_microstep: 4680.77 | backward_inner_microstep: 4646.31 | backward_allreduce_microstep: 34.35 | step_microstep: 0.06
+[2022-03-04 21:11:12,587] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.42 | backward_microstep: 4684.08 | backward_inner_microstep: 4650.32 | backward_allreduce_microstep: 33.66 | step_microstep: 0.06
+[2022-03-04 21:11:18,971] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.30 | backward_microstep: 4685.57 | backward_inner_microstep: 4651.13 | backward_allreduce_microstep: 34.34 | step_microstep: 0.06
+[2022-03-04 21:11:25,338] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.15 | backward_microstep: 4685.87 | backward_inner_microstep: 4651.51 | backward_allreduce_microstep: 34.26 | step_microstep: 0.06
+[2022-03-04 21:11:40,995] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8712.73
+[2022-03-04 21:11:40,996] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.87 | backward_microstep: 5199.56 | backward_inner_microstep: 5150.13 | backward_allreduce_microstep: 49.32 | step_microstep: 8754.92
+[2022-03-04 21:11:40,996] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13541.88 | backward: 37469.07 | backward_inner: 37198.36 | backward_allreduce: 269.95 | step: 8755.37
+[2022-03-04 21:11:46,970] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.94 | backward_microstep: 4273.87 | backward_inner_microstep: 4257.43 | backward_allreduce_microstep: 16.34 | step_microstep: 0.06
+[2022-03-04 21:11:53,466] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1711.82 | backward_microstep: 4778.98 | backward_inner_microstep: 4743.16 | backward_allreduce_microstep: 35.71 | step_microstep: 0.06
+[2022-03-04 21:11:59,961] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1711.24 | backward_microstep: 4779.42 | backward_inner_microstep: 4743.50 | backward_allreduce_microstep: 35.81 | step_microstep: 0.07
+[2022-03-04 21:12:06,460] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.94 | backward_microstep: 4783.03 | backward_inner_microstep: 4747.17 | backward_allreduce_microstep: 35.75 | step_microstep: 0.06
+[2022-03-04 21:12:12,955] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1706.12 | backward_microstep: 4783.03 | backward_inner_microstep: 4746.94 | backward_allreduce_microstep: 35.99 | step_microstep: 0.06
+[2022-03-04 21:12:19,429] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1688.13 | backward_microstep: 4781.18 | backward_inner_microstep: 4745.47 | backward_allreduce_microstep: 35.61 | step_microstep: 0.06
+[2022-03-04 21:12:25,902] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1686.12 | backward_microstep: 4781.97 | backward_inner_microstep: 4746.29 | backward_allreduce_microstep: 35.57 | step_microstep: 0.06
+[2022-03-04 21:12:41,567] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8637.07
+[2022-03-04 21:12:41,568] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1682.69 | backward_microstep: 5298.89 | backward_inner_microstep: 5247.63 | backward_allreduce_microstep: 51.16 | step_microstep: 8679.48
+[2022-03-04 21:12:41,568] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13592.09 | backward: 38260.36 | backward_inner: 37977.63 | backward_allreduce: 281.98 | step: 8679.92
+[2022-03-04 21:12:47,561] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1713.32 | backward_microstep: 4273.83 | backward_inner_microstep: 4258.55 | backward_allreduce_microstep: 15.16 | step_microstep: 0.06
+[2022-03-04 21:12:54,047] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.13 | backward_microstep: 4781.15 | backward_inner_microstep: 4746.61 | backward_allreduce_microstep: 34.44 | step_microstep: 0.06
+[2022-03-04 21:13:00,537] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.28 | backward_microstep: 4780.87 | backward_inner_microstep: 4746.14 | backward_allreduce_microstep: 34.63 | step_microstep: 0.06
+[2022-03-04 21:13:07,026] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.72 | backward_microstep: 4781.48 | backward_inner_microstep: 4747.25 | backward_allreduce_microstep: 34.12 | step_microstep: 0.06
+[2022-03-04 21:13:13,514] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.72 | backward_microstep: 4780.52 | backward_inner_microstep: 4745.89 | backward_allreduce_microstep: 34.53 | step_microstep: 0.06
+[2022-03-04 21:13:20,004] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.25 | backward_microstep: 4781.94 | backward_inner_microstep: 4747.96 | backward_allreduce_microstep: 33.87 | step_microstep: 0.06
+[2022-03-04 21:13:26,491] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.25 | backward_microstep: 4781.95 | backward_inner_microstep: 4747.97 | backward_allreduce_microstep: 33.88 | step_microstep: 0.06
+[2022-03-04 21:13:42,240] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8704.04
+[2022-03-04 21:13:42,241] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.93 | backward_microstep: 5296.48 | backward_inner_microstep: 5245.48 | backward_allreduce_microstep: 50.89 | step_microstep: 8749.17
+[2022-03-04 21:13:42,241] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13625.68 | backward: 38258.22 | backward_inner: 37985.90 | backward_allreduce: 271.55 | step: 8749.61
+[2022-03-04 21:13:48,229] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.90 | backward_microstep: 4281.82 | backward_inner_microstep: 4265.54 | backward_allreduce_microstep: 16.18 | step_microstep: 0.06
+[2022-03-04 21:13:54,727] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.32 | backward_microstep: 4788.69 | backward_inner_microstep: 4753.30 | backward_allreduce_microstep: 35.29 | step_microstep: 0.06
+[2022-03-04 21:14:01,201] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1681.92 | backward_microstep: 4787.03 | backward_inner_microstep: 4751.36 | backward_allreduce_microstep: 35.56 | step_microstep: 0.06
+[2022-03-04 21:14:07,673] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1679.64 | backward_microstep: 4787.15 | backward_inner_microstep: 4751.92 | backward_allreduce_microstep: 35.12 | step_microstep: 0.06
+[2022-03-04 21:14:14,169] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.25 | backward_microstep: 4787.82 | backward_inner_microstep: 4752.01 | backward_allreduce_microstep: 35.71 | step_microstep: 0.06
+[2022-03-04 21:14:20,663] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.18 | backward_microstep: 4787.48 | backward_inner_microstep: 4751.88 | backward_allreduce_microstep: 35.50 | step_microstep: 0.06
+[2022-03-04 21:14:27,161] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.99 | backward_microstep: 4786.49 | backward_inner_microstep: 4751.19 | backward_allreduce_microstep: 35.20 | step_microstep: 0.06
+[2022-03-04 21:14:42,915] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8702.11
+[2022-03-04 21:14:42,915] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.23 | backward_microstep: 5306.29 | backward_inner_microstep: 5254.30 | backward_allreduce_microstep: 51.89 | step_microstep: 8747.03
+[2022-03-04 21:14:42,915] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13574.47 | backward: 38312.78 | backward_inner: 38031.54 | backward_allreduce: 280.48 | step: 8747.47
+[2022-03-04 21:14:48,899] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.37 | backward_microstep: 4275.58 | backward_inner_microstep: 4260.21 | backward_allreduce_microstep: 15.27 | step_microstep: 0.06
+[2022-03-04 21:14:55,395] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1707.17 | backward_microstep: 4783.73 | backward_inner_microstep: 4749.75 | backward_allreduce_microstep: 33.87 | step_microstep: 0.06
+[2022-03-04 21:15:01,886] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.76 | backward_microstep: 4783.67 | backward_inner_microstep: 4749.25 | backward_allreduce_microstep: 34.32 | step_microstep: 0.06
+[2022-03-04 21:15:08,379] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.04 | backward_microstep: 4785.68 | backward_inner_microstep: 4750.98 | backward_allreduce_microstep: 34.59 | step_microstep: 0.06
+[2022-03-04 21:15:14,873] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.43 | backward_microstep: 4785.12 | backward_inner_microstep: 4750.29 | backward_allreduce_microstep: 34.72 | step_microstep: 0.06
+[2022-03-04 21:15:21,361] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.39 | backward_microstep: 4780.22 | backward_inner_microstep: 4745.60 | backward_allreduce_microstep: 34.51 | step_microstep: 0.07
+[2022-03-04 21:15:27,851] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1701.55 | backward_microstep: 4782.31 | backward_inner_microstep: 4748.07 | backward_allreduce_microstep: 34.14 | step_microstep: 0.06
+[2022-03-04 21:15:43,614] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8713.00
+[2022-03-04 21:15:43,615] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.38 | backward_microstep: 5301.65 | backward_inner_microstep: 5251.53 | backward_allreduce_microstep: 50.02 | step_microstep: 8756.85
+[2022-03-04 21:15:43,615] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13618.12 | backward: 38277.95 | backward_inner: 38005.74 | backward_allreduce: 271.46 | step: 8757.29
+[2022-03-04 21:15:49,591] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.93 | backward_microstep: 4275.66 | backward_inner_microstep: 4260.99 | backward_allreduce_microstep: 14.56 | step_microstep: 0.06
+[2022-03-04 21:15:56,089] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1707.57 | backward_microstep: 4785.61 | backward_inner_microstep: 4752.86 | backward_allreduce_microstep: 32.64 | step_microstep: 0.06
+[2022-03-04 21:16:02,559] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1681.24 | backward_microstep: 4784.00 | backward_inner_microstep: 4751.17 | backward_allreduce_microstep: 32.73 | step_microstep: 0.07
+[2022-03-04 21:16:09,057] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1709.02 | backward_microstep: 4784.34 | backward_inner_microstep: 4751.71 | backward_allreduce_microstep: 32.52 | step_microstep: 0.07
+[2022-03-04 21:16:15,558] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.07 | backward_microstep: 4785.24 | backward_inner_microstep: 4752.66 | backward_allreduce_microstep: 32.48 | step_microstep: 0.06
+[2022-03-04 21:16:22,059] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.93 | backward_microstep: 4785.32 | backward_inner_microstep: 4752.53 | backward_allreduce_microstep: 32.69 | step_microstep: 0.06
+[2022-03-04 21:16:28,551] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.26 | backward_microstep: 4789.44 | backward_inner_microstep: 4756.84 | backward_allreduce_microstep: 32.49 | step_microstep: 0.06
+[2022-03-04 21:16:44,253] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8647.47
+[2022-03-04 21:16:44,254] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.62 | backward_microstep: 5302.55 | backward_inner_microstep: 5254.50 | backward_allreduce_microstep: 47.95 | step_microstep: 8698.19
+[2022-03-04 21:16:44,254] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13607.70 | backward: 38292.16 | backward_inner: 38033.29 | backward_allreduce: 258.09 | step: 8698.64
+[2022-03-04 21:16:50,248] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1706.95 | backward_microstep: 4280.79 | backward_inner_microstep: 4264.73 | backward_allreduce_microstep: 15.96 | step_microstep: 0.06
+[2022-03-04 21:16:56,748] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1708.50 | backward_microstep: 4785.78 | backward_inner_microstep: 4750.93 | backward_allreduce_microstep: 34.75 | step_microstep: 0.06
+[2022-03-04 21:17:03,220] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1679.98 | backward_microstep: 4786.68 | backward_inner_microstep: 4751.46 | backward_allreduce_microstep: 35.12 | step_microstep: 0.06
+[2022-03-04 21:17:09,719] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.51 | backward_microstep: 4787.44 | backward_inner_microstep: 4752.05 | backward_allreduce_microstep: 35.29 | step_microstep: 0.06
+[2022-03-04 21:17:16,195] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1683.44 | backward_microstep: 4786.83 | backward_inner_microstep: 4751.58 | backward_allreduce_microstep: 35.15 | step_microstep: 0.06
+[2022-03-04 21:17:22,667] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.59 | backward_microstep: 4786.86 | backward_inner_microstep: 4751.74 | backward_allreduce_microstep: 35.01 | step_microstep: 0.06
+[2022-03-04 21:17:29,166] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1703.92 | backward_microstep: 4789.63 | backward_inner_microstep: 4754.39 | backward_allreduce_microstep: 35.13 | step_microstep: 0.06
+[2022-03-04 21:17:44,917] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8706.84
+[2022-03-04 21:17:44,918] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.45 | backward_microstep: 5303.70 | backward_inner_microstep: 5251.71 | backward_allreduce_microstep: 51.89 | step_microstep: 8748.16
+[2022-03-04 21:17:44,918] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13564.37 | backward: 38307.72 | backward_inner: 38028.63 | backward_allreduce: 278.33 | step: 8748.60
+[2022-03-04 21:17:50,919] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1715.28 | backward_microstep: 4280.01 | backward_inner_microstep: 4265.44 | backward_allreduce_microstep: 14.47 | step_microstep: 0.06
+[2022-03-04 21:17:57,420] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1708.44 | backward_microstep: 4788.47 | backward_inner_microstep: 4755.03 | backward_allreduce_microstep: 33.33 | step_microstep: 0.06
+[2022-03-04 21:18:03,909] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.24 | backward_microstep: 4792.55 | backward_inner_microstep: 4759.82 | backward_allreduce_microstep: 32.62 | step_microstep: 0.07
+[2022-03-04 21:18:10,415] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1709.00 | backward_microstep: 4791.39 | backward_inner_microstep: 4758.51 | backward_allreduce_microstep: 32.78 | step_microstep: 0.06
+[2022-03-04 21:18:16,897] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.47 | backward_microstep: 4789.68 | backward_inner_microstep: 4756.07 | backward_allreduce_microstep: 33.51 | step_microstep: 0.06
+[2022-03-04 21:18:23,381] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.96 | backward_microstep: 4791.32 | backward_inner_microstep: 4757.83 | backward_allreduce_microstep: 33.38 | step_microstep: 0.06
+[2022-03-04 21:18:29,867] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.63 | backward_microstep: 4793.44 | backward_inner_microstep: 4760.00 | backward_allreduce_microstep: 33.33 | step_microstep: 0.06
+[2022-03-04 21:18:36,878] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 262144.0, reducing to 131072.0
+[2022-03-04 21:18:36,879] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.89 | backward_microstep: 5312.42 | backward_inner_microstep: 5263.16 | backward_allreduce_microstep: 49.15 | step_microstep: 6.55
+[2022-03-04 21:18:36,879] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13574.95 | backward: 38339.27 | backward_inner: 38075.91 | backward_allreduce: 262.60 | step: 7.00
+[2022-03-04 21:18:42,887] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1718.47 | backward_microstep: 4284.69 | backward_inner_microstep: 4269.70 | backward_allreduce_microstep: 14.89 | step_microstep: 0.06
+[2022-03-04 21:18:49,375] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.32 | backward_microstep: 4790.60 | backward_inner_microstep: 4757.44 | backward_allreduce_microstep: 33.06 | step_microstep: 0.06
+[2022-03-04 21:18:55,860] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1691.78 | backward_microstep: 4787.59 | backward_inner_microstep: 4753.52 | backward_allreduce_microstep: 33.97 | step_microstep: 0.06
+[2022-03-04 21:19:02,350] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.32 | backward_microstep: 4792.07 | backward_inner_microstep: 4758.17 | backward_allreduce_microstep: 33.79 | step_microstep: 0.06
+[2022-03-04 21:19:08,842] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.62 | backward_microstep: 4791.93 | backward_inner_microstep: 4757.91 | backward_allreduce_microstep: 33.92 | step_microstep: 0.06
+[2022-03-04 21:19:15,344] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.23 | backward_microstep: 4793.55 | backward_inner_microstep: 4759.55 | backward_allreduce_microstep: 33.89 | step_microstep: 0.06
+[2022-03-04 21:19:21,849] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.53 | backward_microstep: 4793.85 | backward_inner_microstep: 4760.07 | backward_allreduce_microstep: 33.67 | step_microstep: 0.06
+[2022-03-04 21:19:28,865] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 131072.0, reducing to 65536.0
+[2022-03-04 21:19:28,866] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1695.74 | backward_microstep: 5309.74 | backward_inner_microstep: 5260.12 | backward_allreduce_microstep: 49.51 | step_microstep: 6.58
+[2022-03-04 21:19:28,866] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13597.04 | backward: 38344.02 | backward_inner: 38076.53 | backward_allreduce: 266.73 | step: 7.02
+ iteration      200/  320000 | elapsed time per iteration (ms): 7217.5 | learning rate: 3.750E-07 | lm loss: 1.124276E+01 | loss scale: 65536.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 1756.21 | backward: 4755.88 | backward-backward: 4755.84 | backward-allreduce: 0.00 | optimizer: 704.05 | batch generator: 1.65
+Effective Tera Flops per GPU: 0.21 and total parameters 4.722 B
+[2022-03-04 21:19:34,868] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1711.30 | backward_microstep: 4283.33 | backward_inner_microstep: 4267.76 | backward_allreduce_microstep: 15.46 | step_microstep: 0.06
+[2022-03-04 21:19:41,362] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.23 | backward_microstep: 4792.82 | backward_inner_microstep: 4758.61 | backward_allreduce_microstep: 34.11 | step_microstep: 0.06
+[2022-03-04 21:19:47,856] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.49 | backward_microstep: 4793.87 | backward_inner_microstep: 4759.65 | backward_allreduce_microstep: 34.12 | step_microstep: 0.06
+[2022-03-04 21:19:54,351] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.64 | backward_microstep: 4794.01 | backward_inner_microstep: 4760.19 | backward_allreduce_microstep: 33.71 | step_microstep: 0.06
+[2022-03-04 21:20:00,848] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.39 | backward_microstep: 4794.61 | backward_inner_microstep: 4760.82 | backward_allreduce_microstep: 33.68 | step_microstep: 0.06
+[2022-03-04 21:20:07,344] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.18 | backward_microstep: 4793.53 | backward_inner_microstep: 4759.59 | backward_allreduce_microstep: 33.83 | step_microstep: 0.06
+[2022-03-04 21:20:13,837] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.86 | backward_microstep: 4790.50 | backward_inner_microstep: 4756.40 | backward_allreduce_microstep: 33.99 | step_microstep: 0.06
+[2022-03-04 21:20:29,615] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8715.53
+[2022-03-04 21:20:29,615] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1706.60 | backward_microstep: 5307.78 | backward_inner_microstep: 5257.94 | backward_allreduce_microstep: 49.74 | step_microstep: 8758.88
+[2022-03-04 21:20:29,616] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13598.75 | backward: 38350.45 | backward_inner: 38081.02 | backward_allreduce: 268.66 | step: 8759.33
+[2022-03-04 21:20:35,602] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.46 | backward_microstep: 4282.08 | backward_inner_microstep: 4267.00 | backward_allreduce_microstep: 14.98 | step_microstep: 0.06
+[2022-03-04 21:20:42,108] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1712.47 | backward_microstep: 4789.58 | backward_inner_microstep: 4755.88 | backward_allreduce_microstep: 33.59 | step_microstep: 0.06
+[2022-03-04 21:20:48,618] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.89 | backward_microstep: 4793.39 | backward_inner_microstep: 4759.00 | backward_allreduce_microstep: 34.28 | step_microstep: 0.06
+[2022-03-04 21:20:55,127] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1709.69 | backward_microstep: 4794.01 | backward_inner_microstep: 4760.08 | backward_allreduce_microstep: 33.83 | step_microstep: 0.06
+[2022-03-04 21:21:01,614] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.19 | backward_microstep: 4794.63 | backward_inner_microstep: 4760.67 | backward_allreduce_microstep: 33.85 | step_microstep: 0.06
+[2022-03-04 21:21:08,100] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1685.87 | backward_microstep: 4795.34 | backward_inner_microstep: 4761.01 | backward_allreduce_microstep: 34.21 | step_microstep: 0.07
+[2022-03-04 21:21:14,600] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.83 | backward_microstep: 4796.42 | backward_inner_microstep: 4762.53 | backward_allreduce_microstep: 33.78 | step_microstep: 0.06
+[2022-03-04 21:21:21,623] [INFO] [stage3.py:2704:_overflow_clean_up] [deepscale] OVERFLOW! Rank 0 Skipping step. Attempted loss scale: 65536.0, reducing to 32768.0
+[2022-03-04 21:21:21,624] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1700.32 | backward_microstep: 5312.74 | backward_inner_microstep: 5263.20 | backward_allreduce_microstep: 49.43 | step_microstep: 5.32
+[2022-03-04 21:21:21,624] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13603.78 | backward: 38358.19 | backward_inner: 38089.43 | backward_allreduce: 267.98 | step: 5.76
+[2022-03-04 21:21:27,617] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.37 | backward_microstep: 4278.49 | backward_inner_microstep: 4263.70 | backward_allreduce_microstep: 14.68 | step_microstep: 0.06
+[2022-03-04 21:21:34,116] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1707.45 | backward_microstep: 4786.33 | backward_inner_microstep: 4752.44 | backward_allreduce_microstep: 33.78 | step_microstep: 0.06
+[2022-03-04 21:21:40,622] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1710.21 | backward_microstep: 4791.01 | backward_inner_microstep: 4756.90 | backward_allreduce_microstep: 34.00 | step_microstep: 0.06
+[2022-03-04 21:21:47,109] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1699.53 | backward_microstep: 4781.91 | backward_inner_microstep: 4747.83 | backward_allreduce_microstep: 33.98 | step_microstep: 0.06
+[2022-03-04 21:21:53,609] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1711.32 | backward_microstep: 4783.79 | backward_inner_microstep: 4749.44 | backward_allreduce_microstep: 34.25 | step_microstep: 0.06
+[2022-03-04 21:22:00,112] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1715.25 | backward_microstep: 4782.35 | backward_inner_microstep: 4747.40 | backward_allreduce_microstep: 34.84 | step_microstep: 0.06
+[2022-03-04 21:22:06,596] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.56 | backward_microstep: 4782.30 | backward_inner_microstep: 4748.12 | backward_allreduce_microstep: 34.07 | step_microstep: 0.06
+[2022-03-04 21:22:22,306] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8613.40
+[2022-03-04 21:22:22,307] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1698.98 | backward_microstep: 5306.40 | backward_inner_microstep: 5256.73 | backward_allreduce_microstep: 49.57 | step_microstep: 8701.07
+[2022-03-04 21:22:22,307] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13649.75 | backward: 38292.59 | backward_inner: 38022.61 | backward_allreduce: 269.20 | step: 8701.52
+[2022-03-04 21:22:28,312] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1722.13 | backward_microstep: 4277.16 | backward_inner_microstep: 4262.28 | backward_allreduce_microstep: 14.77 | step_microstep: 0.06
+[2022-03-04 21:22:34,815] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1712.07 | backward_microstep: 4785.90 | backward_inner_microstep: 4752.57 | backward_allreduce_microstep: 33.22 | step_microstep: 0.06
+[2022-03-04 21:22:41,310] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.30 | backward_microstep: 4784.84 | backward_inner_microstep: 4751.14 | backward_allreduce_microstep: 33.60 | step_microstep: 0.06
+[2022-03-04 21:22:47,808] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1705.33 | backward_microstep: 4787.26 | backward_inner_microstep: 4753.51 | backward_allreduce_microstep: 33.64 | step_microstep: 0.06
+[2022-03-04 21:22:54,296] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.51 | backward_microstep: 4785.95 | backward_inner_microstep: 4752.62 | backward_allreduce_microstep: 33.23 | step_microstep: 0.07
+[2022-03-04 21:23:00,785] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.03 | backward_microstep: 4789.01 | backward_inner_microstep: 4755.20 | backward_allreduce_microstep: 33.71 | step_microstep: 0.06
+[2022-03-04 21:23:07,274] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.51 | backward_microstep: 4788.21 | backward_inner_microstep: 4754.51 | backward_allreduce_microstep: 33.59 | step_microstep: 0.07
+[2022-03-04 21:23:22,985] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8661.90
+[2022-03-04 21:23:22,986] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1696.74 | backward_microstep: 5304.14 | backward_inner_microstep: 5254.56 | backward_allreduce_microstep: 49.46 | step_microstep: 8705.63
+[2022-03-04 21:23:22,986] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13629.69 | backward: 38302.47 | backward_inner: 38036.44 | backward_allreduce: 265.24 | step: 8706.08
+[2022-03-04 21:23:28,962] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1690.88 | backward_microstep: 4279.67 | backward_inner_microstep: 4265.03 | backward_allreduce_microstep: 14.54 | step_microstep: 0.06
+[2022-03-04 21:23:35,450] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.12 | backward_microstep: 4778.96 | backward_inner_microstep: 4745.95 | backward_allreduce_microstep: 32.90 | step_microstep: 0.06
+[2022-03-04 21:23:41,942] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1704.99 | backward_microstep: 4781.97 | backward_inner_microstep: 4748.65 | backward_allreduce_microstep: 33.21 | step_microstep: 0.06
+[2022-03-04 21:23:48,415] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1687.81 | backward_microstep: 4780.26 | backward_inner_microstep: 4746.81 | backward_allreduce_microstep: 33.34 | step_microstep: 0.06
+[2022-03-04 21:23:54,886] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1683.76 | backward_microstep: 4782.40 | backward_inner_microstep: 4748.99 | backward_allreduce_microstep: 33.30 | step_microstep: 0.07
+[2022-03-04 21:24:01,349] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1676.61 | backward_microstep: 4781.20 | backward_inner_microstep: 4747.74 | backward_allreduce_microstep: 33.35 | step_microstep: 0.07
+[2022-03-04 21:24:07,812] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1677.15 | backward_microstep: 4780.28 | backward_inner_microstep: 4747.25 | backward_allreduce_microstep: 32.93 | step_microstep: 0.07
+[2022-03-04 21:24:23,534] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8692.24
+[2022-03-04 21:24:23,535] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1684.93 | backward_microstep: 5297.61 | backward_inner_microstep: 5249.56 | backward_allreduce_microstep: 47.94 | step_microstep: 8735.82
+[2022-03-04 21:24:23,535] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13510.30 | backward: 38262.35 | backward_inner: 38000.03 | backward_allreduce: 261.55 | step: 8736.27
+[2022-03-04 21:24:29,512] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1694.31 | backward_microstep: 4276.89 | backward_inner_microstep: 4260.35 | backward_allreduce_microstep: 16.43 | step_microstep: 0.06
+[2022-03-04 21:24:36,010] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.82 | backward_microstep: 4790.95 | backward_inner_microstep: 4755.36 | backward_allreduce_microstep: 35.49 | step_microstep: 0.06
+[2022-03-04 21:24:42,484] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1680.98 | backward_microstep: 4787.38 | backward_inner_microstep: 4751.74 | backward_allreduce_microstep: 35.53 | step_microstep: 0.06
+[2022-03-04 21:24:48,971] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.41 | backward_microstep: 4784.84 | backward_inner_microstep: 4749.16 | backward_allreduce_microstep: 35.58 | step_microstep: 0.06
+[2022-03-04 21:24:55,452] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.03 | backward_microstep: 4787.36 | backward_inner_microstep: 4751.56 | backward_allreduce_microstep: 35.69 | step_microstep: 0.06
+[2022-03-04 21:25:01,933] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.22 | backward_microstep: 4786.60 | backward_inner_microstep: 4750.60 | backward_allreduce_microstep: 35.90 | step_microstep: 0.06
+[2022-03-04 21:25:08,413] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1689.12 | backward_microstep: 4786.07 | backward_inner_microstep: 4750.24 | backward_allreduce_microstep: 35.71 | step_microstep: 0.06
+[2022-03-04 21:25:24,116] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | optimizer_step: 8650.95
+[2022-03-04 21:25:24,117] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1693.76 | backward_microstep: 5303.58 | backward_inner_microstep: 5251.56 | backward_allreduce_microstep: 51.91 | step_microstep: 8701.09
+[2022-03-04 21:25:24,117] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward: 13536.68 | backward: 38303.66 | backward_inner: 38020.63 | backward_allreduce: 282.27 | step: 8701.52
+[2022-03-04 21:25:30,096] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1697.00 | backward_microstep: 4276.96 | backward_inner_microstep: 4261.60 | backward_allreduce_microstep: 15.26 | step_microstep: 0.06
+[2022-03-04 21:25:36,586] [INFO] [logging.py:69:log_dist] [Rank 0] rank=0 time (ms) | forward_microstep: 1702.30 | backward_microstep: 4783.51 | backward_inner_microstep: 4749.66 | backward_allreduce_microstep: 33.74 | step_microstep: 0.06
+[2022-03-04 21:25:41,840] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 25193
+[2022-03-04 21:25:41,840] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 25194
+[2022-03-04 21:25:41,840] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 25195
+[2022-03-04 21:25:41,841] [INFO] [launch.py:160:sigkill_handler] Killing subprocess 25196
+[2022-03-04 21:25:41,841] [INFO] [launch.py:169:sigkill_handler] Main process received SIGINT, exiting

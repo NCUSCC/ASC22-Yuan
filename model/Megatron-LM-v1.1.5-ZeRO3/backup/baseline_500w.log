@@ -1,0 +1,1449 @@
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 1
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ False
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... False
+  deepspeed_activation_checkpointing  False
+  deepspeed_config ................ None
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 1000
+  eval_iters ...................... 10
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  local_rank ...................... 0
+  log_interval .................... 1
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... False
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  save_interval ................... 10000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ False
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... False
+  tensorboard_dir ................. None
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 500000
+  train_tokens .................... 5000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc22g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 0.0
+  zero_contigious_gradients ....... False
+  zero_reduce_bucket_size ......... 0.0
+  zero_reduce_scatter ............. False
+  zero_stage ...................... 1.0
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+> initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+building GPT2 model ...
+[2022-03-04 15:14:01,399] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-03-04 15:14:01,400] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-03-04 15:14:01,401] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.06 GB, percent = 31.4%
+ > number of parameters on model parallel rank 3            4.722 Billion
+ > number of parameters on model parallel rank 1            4.722 Billion
+ > number of parameters on model parallel rank 2            4.722 Billion
+[2022-03-04 15:14:01,655] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-03-04 15:14:01,656] [INFO] [utils.py:827:see_memory_usage] MA 2.19 GB         Max_MA 2.19 GB         CA 2.28 GB         Max_CA 2 GB 
+[2022-03-04 15:14:01,656] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.14 GB, percent = 31.4%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+WARNING: could not find the metadata file /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/latest_checkpointed_iteration.txt 
+    will not load any checkpoints and will start from random
+> building train, validation, and test datasets ...
+ > datasets target sizes (minimum size):
+    train:      500000
+    validation: 5010
+    test:       10
+> building train, validation, and test datasets for GPT2 ...
+ > building dataset index ...
+    reading sizes...
+    reading pointers...
+    reading document index...
+    creating numpy buffer of mmap...
+    creating memory view of numpy buffer...
+ > finished creating indexed dataset in 0.000376 seconds
+    number of documents: 1706760
+ > dataset split:
+    train:
+     document indices in [0, 1619715) total of 1619715 documents
+    validation:
+     document indices in [1619715, 1705053) total of 85338 documents
+    test:
+     document indices in [1705053, 1706760) total of 1707 documents
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.002 seconds
+    total number of samples: 557359
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.024 seconds
+    total number of samples: 62129
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 66
+    total number of epochs: 1
+> finished creating GPT2 datasets ...
+setting training data start iteration to 0
+setting validation data start iteration to 0
+done with setups ...
+time (ms) | model and optimizer: 414.56 | train/valid/test data iterators: 595.26
+training ...
+ iteration        1/  500000 | elapsed time per iteration (ms): 704.8 | learning rate: 0.000E+00 | loss scale: 4294967296.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+after 1 iterations memory (MB) | allocated: 9046.81298828125 | max allocated: 11298.8134765625 | reserved: 12852.0 | max reserved: 12852.0
+time (ms) | forward: 228.59 | backward: 475.78 | backward-backward: 424.21 | backward-allreduce: 40.64 | backward-master-grad: 10.79 | backward-clip-grad: 0.02 | optimizer: 0.05 | batch generator: 5.87
+Effective Tera Flops per GPU: 27.44 and total parameters 4.722 B
+ iteration        2/  500000 | elapsed time per iteration (ms): 608.4 | learning rate: 0.000E+00 | loss scale: 2147483648.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.79 | backward: 449.13 | backward-backward: 420.67 | backward-allreduce: 27.46 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.04 | batch generator: 0.95
+Effective Tera Flops per GPU: 31.79 and total parameters 4.722 B
+ iteration        3/  500000 | elapsed time per iteration (ms): 609.6 | learning rate: 0.000E+00 | loss scale: 1073741824.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.46 | backward: 451.65 | backward-backward: 420.39 | backward-allreduce: 27.67 | backward-master-grad: 3.49 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.80
+Effective Tera Flops per GPU: 31.73 and total parameters 4.722 B
+ iteration        4/  500000 | elapsed time per iteration (ms): 609.7 | learning rate: 0.000E+00 | loss scale: 536870912.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.50 | backward: 451.73 | backward-backward: 420.44 | backward-allreduce: 30.28 | backward-master-grad: 0.91 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.77
+Effective Tera Flops per GPU: 31.73 and total parameters 4.722 B
+ iteration        5/  500000 | elapsed time per iteration (ms): 607.1 | learning rate: 0.000E+00 | loss scale: 268435456.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.55 | backward: 449.11 | backward-backward: 420.61 | backward-allreduce: 27.39 | backward-master-grad: 1.01 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.79
+Effective Tera Flops per GPU: 31.86 and total parameters 4.722 B
+ iteration        6/  500000 | elapsed time per iteration (ms): 607.0 | learning rate: 0.000E+00 | loss scale: 134217728.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.60 | backward: 448.96 | backward-backward: 420.65 | backward-allreduce: 27.30 | backward-master-grad: 0.90 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.78
+Effective Tera Flops per GPU: 31.86 and total parameters 4.722 B
+ iteration        7/  500000 | elapsed time per iteration (ms): 607.0 | learning rate: 0.000E+00 | loss scale: 67108864.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.56 | backward: 448.97 | backward-backward: 420.54 | backward-allreduce: 27.44 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.79
+Effective Tera Flops per GPU: 31.87 and total parameters 4.722 B
+ iteration        8/  500000 | elapsed time per iteration (ms): 617.2 | learning rate: 0.000E+00 | loss scale: 33554432.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.65 | backward: 459.07 | backward-backward: 427.85 | backward-allreduce: 27.23 | backward-master-grad: 3.88 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.93
+Effective Tera Flops per GPU: 31.34 and total parameters 4.722 B
+ iteration        9/  500000 | elapsed time per iteration (ms): 614.9 | learning rate: 0.000E+00 | loss scale: 16777216.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.50 | backward: 456.92 | backward-backward: 428.45 | backward-allreduce: 27.47 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.80
+Effective Tera Flops per GPU: 31.46 and total parameters 4.722 B
+ iteration       10/  500000 | elapsed time per iteration (ms): 614.5 | learning rate: 0.000E+00 | loss scale: 8388608.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.51 | backward: 456.56 | backward-backward: 428.05 | backward-allreduce: 27.34 | backward-master-grad: 1.08 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.77
+Effective Tera Flops per GPU: 31.48 and total parameters 4.722 B
+ iteration       11/  500000 | elapsed time per iteration (ms): 664.9 | learning rate: 0.000E+00 | loss scale: 4194304.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.51 | backward: 506.80 | backward-backward: 428.27 | backward-allreduce: 27.24 | backward-master-grad: 51.18 | backward-clip-grad: 0.02 | optimizer: 0.04 | batch generator: 0.79
+Effective Tera Flops per GPU: 29.09 and total parameters 4.722 B
+ iteration       12/  500000 | elapsed time per iteration (ms): 618.3 | learning rate: 0.000E+00 | loss scale: 2097152.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.76 | backward: 459.73 | backward-backward: 428.32 | backward-allreduce: 27.41 | backward-master-grad: 3.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.93
+Effective Tera Flops per GPU: 31.29 and total parameters 4.722 B
+ iteration       13/  500000 | elapsed time per iteration (ms): 615.0 | learning rate: 0.000E+00 | loss scale: 1048576.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.20 | backward: 457.28 | backward-backward: 428.57 | backward-allreduce: 27.36 | backward-master-grad: 1.24 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.79
+Effective Tera Flops per GPU: 31.45 and total parameters 4.722 B
+ iteration       14/  500000 | elapsed time per iteration (ms): 638.6 | learning rate: 0.000E+00 | loss scale: 524288.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.74 | backward: 480.45 | backward-backward: 427.95 | backward-allreduce: 27.29 | backward-master-grad: 25.11 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.78
+Effective Tera Flops per GPU: 30.29 and total parameters 4.722 B
+ iteration       15/  500000 | elapsed time per iteration (ms): 1134.0 | learning rate: 4.687E-08 | lm loss: 1.149293E+01 | loss scale: 524288.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 155.45 | backward: 570.90 | backward-backward: 428.24 | backward-allreduce: 27.46 | backward-master-grad: 67.88 | backward-clip-grad: 47.23 | optimizer: 405.17 | batch generator: 0.78
+Effective Tera Flops per GPU: 17.06 and total parameters 4.722 B
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 1
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ False
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... False
+  deepspeed_activation_checkpointing  False
+  deepspeed_config ................ None
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 1000
+  eval_iters ...................... 10
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  local_rank ...................... 0
+  log_interval .................... 1
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... False
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  save_interval ................... 10000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ False
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... False
+  tensorboard_dir ................. None
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 500000
+  train_tokens .................... 5000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc22g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 0.0
+  zero_contigious_gradients ....... False
+  zero_reduce_bucket_size ......... 0.0
+  zero_reduce_scatter ............. False
+  zero_stage ...................... 1.0
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+> initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+building GPT2 model ...
+[2022-03-04 15:15:51,463] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-03-04 15:15:51,463] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-03-04 15:15:51,464] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.07 GB, percent = 31.4%
+ > number of parameters on model parallel rank 2            4.722 Billion
+ > number of parameters on model parallel rank 3            4.722 Billion
+ > number of parameters on model parallel rank 1            4.722 Billion
+[2022-03-04 15:15:51,720] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-03-04 15:15:51,720] [INFO] [utils.py:827:see_memory_usage] MA 2.19 GB         Max_MA 2.19 GB         CA 2.28 GB         Max_CA 2 GB 
+[2022-03-04 15:15:51,721] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.14 GB, percent = 31.4%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+WARNING: could not find the metadata file /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/latest_checkpointed_iteration.txt 
+    will not load any checkpoints and will start from random
+> building train, validation, and test datasets ...
+ > datasets target sizes (minimum size):
+    train:      500000
+    validation: 5010
+    test:       10
+> building train, validation, and test datasets for GPT2 ...
+ > building dataset index ...
+    reading sizes...
+    reading pointers...
+    reading document index...
+    creating numpy buffer of mmap...
+    creating memory view of numpy buffer...
+ > finished creating indexed dataset in 0.000750 seconds
+    number of documents: 1706760
+ > dataset split:
+    train:
+     document indices in [0, 1619715) total of 1619715 documents
+    validation:
+     document indices in [1619715, 1705053) total of 85338 documents
+    test:
+     document indices in [1705053, 1706760) total of 1707 documents
+good-DGX-Station:15277:15277 [0] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15277:15277 [0] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15277:15277 [0] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15277:15277 [0] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15277:15277 [0] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:15277:15355 [0] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15277:15355 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15277:15355 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15277:15355 [0] NCCL INFO Connected all rings
+good-DGX-Station:15277:15355 [0] NCCL INFO Connected all trees
+good-DGX-Station:15277:15355 [0] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15277:15355 [0] NCCL INFO comm 0x7fd094002f70 rank 0 nranks 1 cudaDev 0 busId 7000 - Init COMPLETE
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_500000ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.002 seconds
+    total number of samples: 557359
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_5010ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.031 seconds
+    total number of samples: 62129
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_10ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.001 seconds
+    total number of samples: 66
+    total number of epochs: 1
+> finished creating GPT2 datasets ...
+good-DGX-Station:15279:15279 [2] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15280:15280 [3] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15278:15278 [1] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15279:15279 [2] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15280:15280 [3] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15278:15278 [1] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15279:15279 [2] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15280:15280 [3] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15278:15278 [1] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15280:15280 [3] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15278:15278 [1] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15279:15279 [2] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15280:15280 [3] NCCL INFO Using network Socket
+good-DGX-Station:15278:15278 [1] NCCL INFO Using network Socket
+good-DGX-Station:15279:15279 [2] NCCL INFO Using network Socket
+good-DGX-Station:15278:15361 [1] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15279:15362 [2] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15280:15360 [3] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15280:15360 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:15278:15361 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:15279:15362 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:15280:15360 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:15278:15361 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:15279:15362 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:15277:15359 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:15277:15359 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Connected all rings
+good-DGX-Station:15280:15360 [3] NCCL INFO Connected all rings
+good-DGX-Station:15278:15361 [1] NCCL INFO Connected all rings
+good-DGX-Station:15279:15362 [2] NCCL INFO Connected all rings
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15362 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15360 [3] NCCL INFO Connected all trees
+good-DGX-Station:15280:15360 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15280:15360 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15361 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15359 [0] NCCL INFO Connected all trees
+good-DGX-Station:15277:15359 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15277:15359 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15279:15362 [2] NCCL INFO Connected all trees
+good-DGX-Station:15279:15362 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15279:15362 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15278:15361 [1] NCCL INFO Connected all trees
+good-DGX-Station:15278:15361 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15278:15361 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15277:15359 [0] NCCL INFO comm 0x7fd098002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:15279:15362 [2] NCCL INFO comm 0x7f89b4002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15280:15360 [3] NCCL INFO comm 0x7f5a14002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15278:15361 [1] NCCL INFO comm 0x7fe158002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:15277:15277 [0] NCCL INFO Launch mode Parallel
+setting training data start iteration to 0
+setting validation data start iteration to 0
+done with setups ...
+time (ms) | model and optimizer: 416.59 | train/valid/test data iterators: 529.58
+training ...
+good-DGX-Station:15280:15519 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:15279:15517 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:15278:15518 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:15280:15519 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:15278:15518 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15279:15517 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:15277:15516 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:15277:15516 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Connected all rings
+good-DGX-Station:15278:15518 [1] NCCL INFO Connected all rings
+good-DGX-Station:15280:15519 [3] NCCL INFO Connected all rings
+good-DGX-Station:15277:15516 [0] NCCL INFO Connected all rings
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15279:15517 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15280:15519 [3] NCCL INFO Connected all trees
+good-DGX-Station:15280:15519 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15280:15519 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15278:15518 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15277:15516 [0] NCCL INFO Connected all trees
+good-DGX-Station:15277:15516 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15277:15516 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15279:15517 [2] NCCL INFO Connected all trees
+good-DGX-Station:15279:15517 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15279:15517 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15278:15518 [1] NCCL INFO Connected all trees
+good-DGX-Station:15278:15518 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15278:15518 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15280:15519 [3] NCCL INFO comm 0x7f5a10002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15277:15516 [0] NCCL INFO comm 0x7fd004002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:15279:15517 [2] NCCL INFO comm 0x7f8954002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15278:15518 [1] NCCL INFO comm 0x7fe154002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:15277:15277 [0] NCCL INFO Launch mode Parallel
+NCCL version 2.10.3+cuda11.3NCCL version 2.10.3+cuda11.3
+
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15280:15549 [3] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15280:15549 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15279:15548 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15278:15547 [1] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15278:15547 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15280:15549 [3] NCCL INFO Connected all rings
+good-DGX-Station:15280:15549 [3] NCCL INFO Connected all trees
+good-DGX-Station:15280:15549 [3] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15280:15549 [3] NCCL INFO comm 0x7f5840002f70 rank 0 nranks 1 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15279:15548 [2] NCCL INFO Connected all rings
+good-DGX-Station:15279:15548 [2] NCCL INFO Connected all trees
+good-DGX-Station:15279:15548 [2] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15278:15547 [1] NCCL INFO Connected all rings
+good-DGX-Station:15278:15547 [1] NCCL INFO Connected all trees
+good-DGX-Station:15278:15547 [1] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15279:15548 [2] NCCL INFO comm 0x7f87dc002f70 rank 0 nranks 1 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15278:15547 [1] NCCL INFO comm 0x7fdf88002f70 rank 0 nranks 1 cudaDev 1 busId 8000 - Init COMPLETE
+ iteration        1/  500000 | elapsed time per iteration (ms): 707.3 | learning rate: 0.000E+00 | loss scale: 4294967296.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+after 1 iterations memory (MB) | allocated: 9046.81298828125 | max allocated: 11298.8134765625 | reserved: 12876.0 | max reserved: 12876.0
+time (ms) | forward: 224.31 | backward: 482.48 | backward-backward: 424.81 | backward-allreduce: 38.72 | backward-master-grad: 18.82 | backward-clip-grad: 0.02 | optimizer: 0.05 | batch generator: 6.20
+Effective Tera Flops per GPU: 27.35 and total parameters 4.722 B
+ iteration        2/  500000 | elapsed time per iteration (ms): 608.1 | learning rate: 0.000E+00 | loss scale: 2147483648.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.70 | backward: 448.94 | backward-backward: 420.45 | backward-allreduce: 27.48 | backward-master-grad: 0.90 | backward-clip-grad: 0.02 | optimizer: 0.04 | batch generator: 1.01
+Effective Tera Flops per GPU: 31.81 and total parameters 4.722 B
+ iteration        3/  500000 | elapsed time per iteration (ms): 606.6 | learning rate: 0.000E+00 | loss scale: 1073741824.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.32 | backward: 448.94 | backward-backward: 420.23 | backward-allreduce: 27.72 | backward-master-grad: 0.88 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.78
+Effective Tera Flops per GPU: 31.89 and total parameters 4.722 B
+ iteration        4/  500000 | elapsed time per iteration (ms): 607.1 | learning rate: 0.000E+00 | loss scale: 536870912.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.30 | backward: 449.40 | backward-backward: 420.99 | backward-allreduce: 27.41 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.90
+Effective Tera Flops per GPU: 31.86 and total parameters 4.722 B
+ iteration        5/  500000 | elapsed time per iteration (ms): 606.6 | learning rate: 0.000E+00 | loss scale: 268435456.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.30 | backward: 448.91 | backward-backward: 420.40 | backward-allreduce: 27.39 | backward-master-grad: 1.00 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.77
+Effective Tera Flops per GPU: 31.89 and total parameters 4.722 B
+ iteration        6/  500000 | elapsed time per iteration (ms): 609.0 | learning rate: 0.000E+00 | loss scale: 134217728.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.21 | backward: 451.40 | backward-backward: 420.08 | backward-allreduce: 27.28 | backward-master-grad: 3.94 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.80
+Effective Tera Flops per GPU: 31.76 and total parameters 4.722 B
+ iteration        7/  500000 | elapsed time per iteration (ms): 606.2 | learning rate: 0.000E+00 | loss scale: 67108864.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.20 | backward: 448.66 | backward-backward: 420.27 | backward-allreduce: 27.35 | backward-master-grad: 0.94 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.79
+Effective Tera Flops per GPU: 31.91 and total parameters 4.722 B
+ iteration        8/  500000 | elapsed time per iteration (ms): 615.0 | learning rate: 0.000E+00 | loss scale: 33554432.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.35 | backward: 456.50 | backward-backward: 428.17 | backward-allreduce: 27.31 | backward-master-grad: 0.91 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 1.06
+Effective Tera Flops per GPU: 31.45 and total parameters 4.722 B
+ iteration        9/  500000 | elapsed time per iteration (ms): 617.6 | learning rate: 0.000E+00 | loss scale: 16777216.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.41 | backward: 459.75 | backward-backward: 428.12 | backward-allreduce: 27.52 | backward-master-grad: 4.00 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.81
+Effective Tera Flops per GPU: 31.32 and total parameters 4.722 B
+ iteration       10/  500000 | elapsed time per iteration (ms): 614.5 | learning rate: 0.000E+00 | loss scale: 8388608.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.37 | backward: 456.73 | backward-backward: 428.22 | backward-allreduce: 27.41 | backward-master-grad: 0.99 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.81
+Effective Tera Flops per GPU: 31.48 and total parameters 4.722 B
+ iteration       11/  500000 | elapsed time per iteration (ms): 664.9 | learning rate: 0.000E+00 | loss scale: 4194304.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.21 | backward: 507.12 | backward-backward: 428.15 | backward-allreduce: 27.37 | backward-master-grad: 51.48 | backward-clip-grad: 0.02 | optimizer: 0.04 | batch generator: 0.80
+Effective Tera Flops per GPU: 29.09 and total parameters 4.722 B
+ iteration       12/  500000 | elapsed time per iteration (ms): 615.0 | learning rate: 0.000E+00 | loss scale: 2097152.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.58 | backward: 456.75 | backward-backward: 428.21 | backward-allreduce: 27.48 | backward-master-grad: 0.95 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.96
+Effective Tera Flops per GPU: 31.45 and total parameters 4.722 B
+ iteration       13/  500000 | elapsed time per iteration (ms): 614.5 | learning rate: 0.000E+00 | loss scale: 1048576.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.27 | backward: 456.85 | backward-backward: 428.10 | backward-allreduce: 27.36 | backward-master-grad: 1.27 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.80
+Effective Tera Flops per GPU: 31.48 and total parameters 4.722 B
+ iteration       14/  500000 | elapsed time per iteration (ms): 638.1 | learning rate: 0.000E+00 | loss scale: 524288.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 155.22 | backward: 480.48 | backward-backward: 428.00 | backward-allreduce: 27.31 | backward-master-grad: 25.06 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.81
+Effective Tera Flops per GPU: 30.31 and total parameters 4.722 B
+ iteration       15/  500000 | elapsed time per iteration (ms): 1170.6 | learning rate: 4.687E-08 | lm loss: 1.149293E+01 | loss scale: 524288.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 155.33 | backward: 598.88 | backward-backward: 428.28 | backward-allreduce: 27.53 | backward-master-grad: 94.86 | backward-clip-grad: 48.11 | optimizer: 414.03 | batch generator: 0.79
+Effective Tera Flops per GPU: 16.52 and total parameters 4.722 B
+using world size: 4 and model-parallel size: 4 
+using torch.float16 for parameters ...
+WARNING: overriding default arguments for tokenizer_type:GPT2BPETokenizer                        with tokenizer_type:BertWordPieceLowerCase
+-------------------- arguments --------------------
+  adam_beta1 ...................... 0.9
+  adam_beta2 ...................... 0.999
+  adam_eps ........................ 1e-08
+  adlr_autoresume ................. False
+  adlr_autoresume_interval ........ 1000
+  apply_query_key_layer_scaling ... False
+  apply_residual_connection_post_layernorm  False
+  attention_dropout ............... 0.1
+  attention_softmax_in_fp32 ....... False
+  batch_size ...................... 2
+  bert_load ....................... None
+  bias_dropout_fusion ............. False
+  bias_gelu_fusion ................ False
+  block_data_path ................. None
+  checkpoint_activations .......... True
+  checkpoint_in_cpu ............... False
+  checkpoint_num_layers ........... 1
+  clip_grad ....................... 1.0
+  contigious_checkpointing ........ False
+  cpu_optimizer ................... False
+  cpu_torch_adam .................. False
+  data_impl ....................... mmap
+  data_path ....................... /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence
+  DDP_impl ........................ local
+  deepscale ....................... False
+  deepscale_config ................ None
+  deepspeed ....................... False
+  deepspeed_activation_checkpointing  False
+  deepspeed_config ................ None
+  deepspeed_mpi ................... False
+  distribute_checkpointed_activations  False
+  distributed_backend ............. nccl
+  dynamic_loss_scale .............. True
+  eod_mask_loss ................... False
+  eval_interval ................... 1000
+  eval_iters ...................... 10
+  exit_interval ................... None
+  faiss_use_gpu ................... False
+  finetune ........................ False
+  fp16 ............................ True
+  fp16_lm_cross_entropy ........... False
+  fp32_allreduce .................. False
+  hidden_dropout .................. 0.1
+  hidden_size ..................... 3072
+  hysteresis ...................... 2
+  ict_head_size ................... None
+  ict_load ........................ None
+  indexer_batch_size .............. 128
+  indexer_log_interval ............ 1000
+  init_method_std ................. 0.02
+  layernorm_epsilon ............... 1e-05
+  lazy_mpu_init ................... None
+  load ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  local_rank ...................... 0
+  log_interval .................... 1
+  loss_scale ...................... None
+  loss_scale_window ............... 1000
+  lr .............................. 0.00015
+  lr_decay_iters .................. 320000
+  lr_decay_style .................. cosine
+  make_vocab_size_divisible_by .... 128
+  mask_prob ....................... 0.15
+  max_position_embeddings ......... 2048
+  memory_centric_tiled_linear ..... False
+  merge_file ...................... None
+  min_lr .......................... 1e-05
+  min_scale ....................... 1
+  mmap_warmup ..................... False
+  model_parallel_size ............. 4
+  no_load_optim ................... False
+  no_load_rng ..................... False
+  no_save_optim ................... False
+  no_save_rng ..................... False
+  num_attention_heads ............. 24
+  num_layers ...................... 40
+  num_unique_layers ............... None
+  num_workers ..................... 2
+  onnx_safe ....................... None
+  openai_gelu ..................... False
+  override_lr_scheduler ........... False
+  param_sharing_style ............. grouped
+  params_dtype .................... torch.float16
+  partition_activations ........... False
+  profile_backward ................ False
+  query_in_block_prob ............. 0.1
+  rank ............................ 0
+  remote_device ................... none
+  report_topk_accuracies .......... []
+  reset_attention_mask ............ False
+  reset_position_ids .............. False
+  save ............................ /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B
+  save_interval ................... 10000
+  scaled_masked_softmax_fusion .... False
+  scaled_upper_triang_masked_softmax_fusion  False
+  scattered_embeddings ............ False
+  seed ............................ 1234
+  seq_length ...................... 2048
+  short_seq_prob .................. 0.1
+  split ........................... 949,50,1
+  split_transformers .............. False
+  synchronize_each_layer .......... False
+  tensorboard_dir ................. None
+  tile_factor ..................... 1
+  titles_data_path ................ None
+  tokenizer_type .................. BertWordPieceLowerCase
+  tokens .......................... 0
+  train_iters ..................... 500000
+  train_tokens .................... 5000000
+  use_checkpoint_lr_scheduler ..... False
+  use_cpu_initialization .......... False
+  use_one_sent_docs ............... False
+  use_pin_memory .................. False
+  vocab_file ...................... /home/asc22g0/ASC22/vocab_dxy.txt
+  warmup .......................... 0.01
+  warmup_iters .................... None
+  weight_decay .................... 0.01
+  world_size ...................... 4
+  zero_allgather_bucket_size ...... 0.0
+  zero_contigious_gradients ....... False
+  zero_reduce_bucket_size ......... 0.0
+  zero_reduce_scatter ............. False
+  zero_stage ...................... 1.0
+---------------- end of arguments ----------------
+> building BertWordPieceLowerCase tokenizer ...
+ > padded vocab (size: 53229) with 19 dummy tokens (new size: 53248)
+> initializing torch distributed ...
+> initializing model parallel with size 4
+> setting random seeds to 1234 ...
+> initializing model parallel cuda seeds on global rank 0, model parallel rank 0, and data parallel rank 0 with model parallel seed: 3952 and data parallel seed: 1234
+building GPT2 model ...
+[2022-03-04 15:16:36,356] [INFO] [utils.py:822:see_memory_usage] Before Building Model
+[2022-03-04 15:16:36,357] [INFO] [utils.py:827:see_memory_usage] MA 0.0 GB         Max_MA 0.0 GB         CA 0.0 GB         Max_CA 0 GB 
+[2022-03-04 15:16:36,357] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.08 GB, percent = 31.4%
+ > number of parameters on model parallel rank 2            4.722 Billion
+ > number of parameters on model parallel rank 1            4.722 Billion
+ > number of parameters on model parallel rank 3            4.722 Billion
+[2022-03-04 15:16:36,614] [INFO] [utils.py:822:see_memory_usage] After Building Model
+[2022-03-04 15:16:36,615] [INFO] [utils.py:827:see_memory_usage] MA 2.19 GB         Max_MA 2.19 GB         CA 2.28 GB         Max_CA 2 GB 
+[2022-03-04 15:16:36,615] [INFO] [utils.py:832:see_memory_usage] CPU Virtual Memory:  used = 79.14 GB, percent = 31.4%
+ > number of parameters on model parallel rank 0            4.722 Billion
+> learning rate decay style: cosine
+WARNING: could not find the metadata file /home/asc22g0/ASC22/DeepSpeed/DeepSpeedExamples/Megatron-LM-v1.1.5-ZeRO3/checkpoints/ds_gpt2_4.7B/latest_checkpointed_iteration.txt 
+    will not load any checkpoints and will start from random
+> building train, validation, and test datasets ...
+ > datasets target sizes (minimum size):
+    train:      1000000
+    validation: 10020
+    test:       20
+> building train, validation, and test datasets for GPT2 ...
+ > building dataset index ...
+    reading sizes...
+    reading pointers...
+    reading document index...
+    creating numpy buffer of mmap...
+    creating memory view of numpy buffer...
+ > finished creating indexed dataset in 0.000372 seconds
+    number of documents: 1706760
+ > dataset split:
+    train:
+     document indices in [0, 1619715) total of 1619715 documents
+    validation:
+     document indices in [1619715, 1705053) total of 85338 documents
+    test:
+     document indices in [1705053, 1706760) total of 1707 documents
+good-DGX-Station:15610:15610 [0] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15610:15610 [0] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15610:15610 [0] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15610:15610 [0] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15610:15610 [0] NCCL INFO Using network Socket
+NCCL version 2.10.3+cuda11.3
+good-DGX-Station:15610:15687 [0] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15610:15687 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15610:15687 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15610:15687 [0] NCCL INFO Connected all rings
+good-DGX-Station:15610:15687 [0] NCCL INFO Connected all trees
+good-DGX-Station:15610:15687 [0] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15610:15687 [0] NCCL INFO comm 0x7f77a8002f70 rank 0 nranks 1 cudaDev 0 busId 7000 - Init COMPLETE
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_1000000ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_1000000ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_train_indexmap_1000000ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.002 seconds
+    total number of samples: 1114718
+    total number of epochs: 2
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_10020ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_10020ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_valid_indexmap_10020ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.030 seconds
+    total number of samples: 62129
+    total number of epochs: 1
+ > loading doc-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_20ns_2048sl_1234s_doc_idx.npy
+ > loading sample-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_20ns_2048sl_1234s_sample_idx.npy
+ > loading shuffle-idx mapping from /home/asc22g0/ASC22/my-gpt2/my-gpt2_text_sentence_test_indexmap_20ns_2048sl_1234s_shuffle_idx.npy
+    loaded indexed file in 0.002 seconds
+    total number of samples: 66
+    total number of epochs: 1
+> finished creating GPT2 datasets ...
+good-DGX-Station:15612:15612 [2] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15613:15613 [3] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15611:15611 [1] NCCL INFO Bootstrap : Using enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15612:15612 [2] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15613:15613 [3] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15611:15611 [1] NCCL INFO NET/Plugin : No plugin found (libnccl-net.so), using internal implementation
+good-DGX-Station:15612:15612 [2] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15611:15611 [1] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15613:15613 [3] NCCL INFO NCCL_IB_DISABLE set by environment to 1.
+good-DGX-Station:15611:15611 [1] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15612:15612 [2] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15611:15611 [1] NCCL INFO Using network Socket
+good-DGX-Station:15613:15613 [3] NCCL INFO NET/Socket : Using [0]enp2s0f0:192.168.1.72<0>
+good-DGX-Station:15612:15612 [2] NCCL INFO Using network Socket
+good-DGX-Station:15613:15613 [3] NCCL INFO Using network Socket
+good-DGX-Station:15611:15692 [1] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15612:15693 [2] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15613:15694 [3] NCCL INFO NCCL_P2P_LEVEL set by environment to NVL
+good-DGX-Station:15613:15694 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:15612:15693 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:15611:15692 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:15613:15694 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15612:15693 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:15611:15692 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:15610:15691 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:15610:15691 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Connected all rings
+good-DGX-Station:15613:15694 [3] NCCL INFO Connected all rings
+good-DGX-Station:15610:15691 [0] NCCL INFO Connected all rings
+good-DGX-Station:15611:15692 [1] NCCL INFO Connected all rings
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15693 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15694 [3] NCCL INFO Connected all trees
+good-DGX-Station:15613:15694 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15613:15694 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15692 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15610:15691 [0] NCCL INFO Connected all trees
+good-DGX-Station:15610:15691 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15610:15691 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15612:15693 [2] NCCL INFO Connected all trees
+good-DGX-Station:15612:15693 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15612:15693 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15611:15692 [1] NCCL INFO Connected all trees
+good-DGX-Station:15611:15692 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15611:15692 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15612:15693 [2] NCCL INFO comm 0x7f0d20002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15610:15691 [0] NCCL INFO comm 0x7f77ac002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:15613:15694 [3] NCCL INFO comm 0x7fb788002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15611:15692 [1] NCCL INFO comm 0x7f23e0002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:15610:15610 [0] NCCL INFO Launch mode Parallel
+setting training data start iteration to 0
+setting validation data start iteration to 0
+done with setups ...
+time (ms) | model and optimizer: 404.44 | train/valid/test data iterators: 533.56
+training ...
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 00/08 :    0   1   2   3
+good-DGX-Station:15613:15851 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] 1/-1/-1->3->0 [2] 2/-1/-1->3->0 [3] -1/-1/-1->3->1 [4] -1/-1/-1->3->2 [5] 1/-1/-1->3->0 [6] 2/-1/-1->3->0 [7] -1/-1/-1->3->1
+good-DGX-Station:15612:15849 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] -1/-1/-1->2->1 [2] 1/-1/-1->2->3 [3] 1/-1/-1->2->0 [4] 3/-1/-1->2->1 [5] -1/-1/-1->2->1 [6] 1/-1/-1->2->3 [7] 1/-1/-1->2->0
+good-DGX-Station:15611:15850 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->3 [2] -1/-1/-1->1->2 [3] 3/-1/-1->1->2 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->3 [6] -1/-1/-1->1->2 [7] 3/-1/-1->1->2
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 01/08 :    0   3   1   2
+good-DGX-Station:15613:15851 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15612:15849 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 02/08 :    0   3   2   1
+good-DGX-Station:15611:15850 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 03/08 :    0   2   1   3
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 04/08 :    0   1   2   3
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 05/08 :    0   3   1   2
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 06/08 :    0   3   2   1
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 07/08 :    0   2   1   3
+good-DGX-Station:15610:15848 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 3/-1/-1->0->-1 [2] 3/-1/-1->0->-1 [3] 2/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 3/-1/-1->0->-1 [6] 3/-1/-1->0->-1 [7] 2/-1/-1->0->-1
+good-DGX-Station:15610:15848 [0] NCCL INFO Setting affinity for GPU 0 to ff,ffffffff
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 00 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 00 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 03 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 01 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 04 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 00 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 04 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 00 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 07 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 04 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 05 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 04 : 0[7000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 03 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 01 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 01 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 03 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 07 : 0[7000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 05 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 05 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 07 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 02 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 01 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 03 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 02 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 06 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 02 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 02 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 05 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 07 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 06 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Channel 06 : 0[7000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 06 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Connected all rings
+good-DGX-Station:15613:15851 [3] NCCL INFO Connected all rings
+good-DGX-Station:15610:15848 [0] NCCL INFO Connected all rings
+good-DGX-Station:15611:15850 [1] NCCL INFO Connected all rings
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 02 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 03 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 01 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 06 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 02 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 07 : 1[8000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 05 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 02 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 06 : 3[f000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 06 : 2[e000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 03 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 07 : 2[e000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 01 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 03 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 05 : 1[8000] -> 3[f000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 07 : 3[f000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 00 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 00 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 01 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Channel 04 : 3[f000] -> 2[e000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 04 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15612:15849 [2] NCCL INFO Channel 05 : 2[e000] -> 1[8000] via P2P/IPC
+good-DGX-Station:15613:15851 [3] NCCL INFO Connected all trees
+good-DGX-Station:15613:15851 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15613:15851 [3] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 00 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15611:15850 [1] NCCL INFO Channel 04 : 1[8000] -> 0[7000] via P2P/IPC
+good-DGX-Station:15610:15848 [0] NCCL INFO Connected all trees
+good-DGX-Station:15610:15848 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15610:15848 [0] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15612:15849 [2] NCCL INFO Connected all trees
+good-DGX-Station:15612:15849 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15612:15849 [2] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15611:15850 [1] NCCL INFO Connected all trees
+good-DGX-Station:15611:15850 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 8/8/512
+good-DGX-Station:15611:15850 [1] NCCL INFO 8 coll channels, 8 p2p channels, 2 p2p channels per peer
+good-DGX-Station:15612:15849 [2] NCCL INFO comm 0x7f0d1c002f70 rank 2 nranks 4 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15611:15850 [1] NCCL INFO comm 0x7f23dc002f70 rank 1 nranks 4 cudaDev 1 busId 8000 - Init COMPLETE
+good-DGX-Station:15613:15851 [3] NCCL INFO comm 0x7fb784002f70 rank 3 nranks 4 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15610:15848 [0] NCCL INFO comm 0x7f769c002f70 rank 0 nranks 4 cudaDev 0 busId 7000 - Init COMPLETE
+good-DGX-Station:15610:15610 [0] NCCL INFO Launch mode Parallel
+NCCL version 2.10.3+cuda11.3NCCL version 2.10.3+cuda11.3
+NCCL version 2.10.3+cuda11.3
+
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15613:15879 [3] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15613:15879 [3] NCCL INFO Setting affinity for GPU 3 to ff,ffffffff
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 00/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 01/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 02/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 03/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 04/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 05/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 06/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 07/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 08/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 09/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 10/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 11/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 12/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 13/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 14/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 15/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 16/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 17/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 18/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 19/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 20/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 21/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 22/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 23/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 24/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 25/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 26/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 27/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 28/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 29/32 :    0
+good-DGX-Station:15612:15881 [2] NCCL INFO Setting affinity for GPU 2 to ff,ffffffff
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 30/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Channel 31/32 :    0
+good-DGX-Station:15611:15880 [1] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1
+good-DGX-Station:15611:15880 [1] NCCL INFO Setting affinity for GPU 1 to ff,ffffffff
+good-DGX-Station:15613:15879 [3] NCCL INFO Connected all rings
+good-DGX-Station:15613:15879 [3] NCCL INFO Connected all trees
+good-DGX-Station:15613:15879 [3] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15613:15879 [3] NCCL INFO comm 0x7fb598002f70 rank 0 nranks 1 cudaDev 3 busId f000 - Init COMPLETE
+good-DGX-Station:15612:15881 [2] NCCL INFO Connected all rings
+good-DGX-Station:15612:15881 [2] NCCL INFO Connected all trees
+good-DGX-Station:15612:15881 [2] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15611:15880 [1] NCCL INFO Connected all rings
+good-DGX-Station:15611:15880 [1] NCCL INFO Connected all trees
+good-DGX-Station:15611:15880 [1] NCCL INFO 32 coll channels, 32 p2p channels, 32 p2p channels per peer
+good-DGX-Station:15612:15881 [2] NCCL INFO comm 0x7f0b28002f70 rank 0 nranks 1 cudaDev 2 busId e000 - Init COMPLETE
+good-DGX-Station:15611:15880 [1] NCCL INFO comm 0x7f21ec002f70 rank 0 nranks 1 cudaDev 1 busId 8000 - Init COMPLETE
+ iteration        1/  500000 | elapsed time per iteration (ms): 1123.8 | learning rate: 0.000E+00 | loss scale: 4294967296.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+after 1 iterations memory (MB) | allocated: 9047.31298828125 | max allocated: 11299.3134765625 | reserved: 14038.0 | max reserved: 14038.0
+time (ms) | forward: 294.17 | backward: 829.17 | backward-backward: 772.00 | backward-allreduce: 38.49 | backward-master-grad: 18.54 | backward-clip-grad: 0.03 | optimizer: 0.05 | batch generator: 7.08
+Effective Tera Flops per GPU: 34.42 and total parameters 4.722 B
+ iteration        2/  500000 | elapsed time per iteration (ms): 1081.9 | learning rate: 0.000E+00 | loss scale: 2147483648.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 281.11 | backward: 797.29 | backward-backward: 769.00 | backward-allreduce: 27.30 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.98
+Effective Tera Flops per GPU: 35.76 and total parameters 4.722 B
+ iteration        3/  500000 | elapsed time per iteration (ms): 1080.3 | learning rate: 0.000E+00 | loss scale: 1073741824.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.76 | backward: 797.22 | backward-backward: 768.61 | backward-allreduce: 27.63 | backward-master-grad: 0.88 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.84
+Effective Tera Flops per GPU: 35.81 and total parameters 4.722 B
+ iteration        4/  500000 | elapsed time per iteration (ms): 1079.7 | learning rate: 0.000E+00 | loss scale: 536870912.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.32 | backward: 796.97 | backward-backward: 768.73 | backward-allreduce: 27.19 | backward-master-grad: 0.95 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.80
+Effective Tera Flops per GPU: 35.83 and total parameters 4.722 B
+ iteration        5/  500000 | elapsed time per iteration (ms): 1080.2 | learning rate: 0.000E+00 | loss scale: 268435456.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.80 | backward: 796.98 | backward-backward: 768.67 | backward-allreduce: 27.20 | backward-master-grad: 1.01 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.83
+Effective Tera Flops per GPU: 35.81 and total parameters 4.722 B
+ iteration        6/  500000 | elapsed time per iteration (ms): 1080.1 | learning rate: 0.000E+00 | loss scale: 134217728.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.84 | backward: 796.88 | backward-backward: 768.65 | backward-allreduce: 27.24 | backward-master-grad: 0.88 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.83
+Effective Tera Flops per GPU: 35.82 and total parameters 4.722 B
+ iteration        7/  500000 | elapsed time per iteration (ms): 1093.5 | learning rate: 0.000E+00 | loss scale: 67108864.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.86 | backward: 810.20 | backward-backward: 781.95 | backward-allreduce: 27.25 | backward-master-grad: 0.90 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.83
+Effective Tera Flops per GPU: 35.38 and total parameters 4.722 B
+ iteration        8/  500000 | elapsed time per iteration (ms): 1093.6 | learning rate: 0.000E+00 | loss scale: 33554432.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.90 | backward: 810.37 | backward-backward: 782.15 | backward-allreduce: 27.23 | backward-master-grad: 0.89 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.82
+Effective Tera Flops per GPU: 35.37 and total parameters 4.722 B
+ iteration        9/  500000 | elapsed time per iteration (ms): 1094.0 | learning rate: 0.000E+00 | loss scale: 16777216.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.86 | backward: 810.78 | backward-backward: 782.47 | backward-allreduce: 27.32 | backward-master-grad: 0.88 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.86
+Effective Tera Flops per GPU: 35.36 and total parameters 4.722 B
+ iteration       10/  500000 | elapsed time per iteration (ms): 1094.5 | learning rate: 0.000E+00 | loss scale: 8388608.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.99 | backward: 811.12 | backward-backward: 782.87 | backward-allreduce: 27.16 | backward-master-grad: 0.99 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.82
+Effective Tera Flops per GPU: 35.35 and total parameters 4.722 B
+ iteration       11/  500000 | elapsed time per iteration (ms): 1145.1 | learning rate: 0.000E+00 | loss scale: 4194304.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 280.83 | backward: 861.75 | backward-backward: 782.91 | backward-allreduce: 27.15 | backward-master-grad: 51.58 | backward-clip-grad: 0.02 | optimizer: 0.04 | batch generator: 0.82
+Effective Tera Flops per GPU: 33.78 and total parameters 4.722 B
+ iteration       12/  500000 | elapsed time per iteration (ms): 1094.9 | learning rate: 0.000E+00 | loss scale: 2097152.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 281.27 | backward: 810.98 | backward-backward: 782.61 | backward-allreduce: 27.27 | backward-master-grad: 1.00 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.99
+Effective Tera Flops per GPU: 35.33 and total parameters 4.722 B
+ iteration       13/  500000 | elapsed time per iteration (ms): 1094.7 | learning rate: 0.000E+00 | loss scale: 1048576.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 281.42 | backward: 810.92 | backward-backward: 782.34 | backward-allreduce: 27.26 | backward-master-grad: 1.21 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.83
+Effective Tera Flops per GPU: 35.34 and total parameters 4.722 B
+ iteration       14/  500000 | elapsed time per iteration (ms): 1118.4 | learning rate: 0.000E+00 | loss scale: 524288.0 | number of skipped iterations:   1 | number of nan iterations:   0 |
+time (ms) | forward: 281.03 | backward: 834.95 | backward-backward: 782.47 | backward-allreduce: 27.18 | backward-master-grad: 25.20 | backward-clip-grad: 0.02 | optimizer: 0.03 | batch generator: 0.83
+Effective Tera Flops per GPU: 34.59 and total parameters 4.722 B
+ iteration       15/  500000 | elapsed time per iteration (ms): 1635.4 | learning rate: 4.687E-08 | lm loss: 1.152242E+01 | loss scale: 524288.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 280.84 | backward: 941.35 | backward-backward: 782.77 | backward-allreduce: 27.32 | backward-master-grad: 84.45 | backward-clip-grad: 46.72 | optimizer: 410.93 | batch generator: 0.83
+Effective Tera Flops per GPU: 23.65 and total parameters 4.722 B
+ iteration       16/  500000 | elapsed time per iteration (ms): 1380.1 | learning rate: 9.375E-08 | lm loss: 1.146601E+01 | loss scale: 524288.0 | number of skipped iterations:   0 | number of nan iterations:   0 |
+time (ms) | forward: 287.88 | backward: 927.12 | backward-backward: 784.37 | backward-allreduce: 27.52 | backward-master-grad: 68.42 | backward-clip-grad: 46.72 | optimizer: 162.57 | batch generator: 0.87
+Effective Tera Flops per GPU: 28.03 and total parameters 4.722 B
